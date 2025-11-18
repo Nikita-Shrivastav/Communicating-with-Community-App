@@ -13,3 +13,12 @@ The project is lightweight, requires minimal setup, and runs seamlessly across i
 Developers can customize it by adding new categories, phrases, or localized voices. 
 With its elegant design, speech integration, and focus on accessibility, 
 Communicating with Community serves as a meaningful tool to empower communication through technology and build stronger connections with those around us.
+
+This app does not collect, store, use, or share any personal data.
+We do not collect names, email addresses, or any personal information.
+We do not track usage.
+We do not use analytics.
+We do not share any information with third parties.
+We do not store anything on our servers.
+If you have any questions, please contact us at:
+shrivastav.nikita2011@example.com
