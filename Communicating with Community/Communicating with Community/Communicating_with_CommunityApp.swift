@@ -1,258 +1,133 @@
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 import AVFoundation
 
-// MARK: - Model
-struct NeedItem: Identifiable {
-    let id = UUID()
-    let image: String
-    let text: String
-    let category: Category
-    
-    enum Category {
-        case need
-        case want
-        case feeling
-    }
-}
-
-// MARK: - Main View
+// MARK: - Main Communication Board View
 struct SpeechBoardView: View {
+    enum AppLanguage: String, CaseIterable, Identifiable {
+        case english = "en"
+        case hindi = "hi"
+        var id: String { rawValue }
+        var displayName: String {
+            switch self {
+            case .english: return EnglishLocalizationProvider().displayName
+            case .hindi: return HindiLocalizationProvider().displayName
+            }
+        }
+        var preferredVoiceCodes: [String] {
+            switch self {
+            case .english:
+                return EnglishLocalizationProvider().preferredVoiceCodes
+            case .hindi:
+                return HindiLocalizationProvider().preferredVoiceCodes
+            }
+        }
+    }
+
+    @AppStorage("selectedLanguageCode") private var selectedLanguageCode: String = ""
+    @State private var showLanguagePicker: Bool = true
+    
     @State private var selectedCategory: NeedItem.Category? = nil
     @State private var showIntro = true
     @State private var isSentenceBuilderActive = false
+
+    private var currentLanguage: AppLanguage { AppLanguage(rawValue: selectedLanguageCode) ?? .english }
     
-    // MARK: - Expanded Word Bank (READ-ONLY)
-    @State private var wordBank: [String] = [
-        // Core pronouns / helpers
-        "I", "you", "we", "they", "he", "she",
-        "want", "need", "feel", "am", "is", "are",
-        "to", "go", "play", "eat", "drink", "see", "find", "help",
-        "please", "now", "later", "more", "less", "stop",
+    private var provider: LocalizationProvider {
+        switch currentLanguage {
+        case .english: return EnglishLocalizationProvider()
+        case .hindi: return HindiLocalizationProvider()
+        }
+    }
 
-        // People
-        "mom", "dad", "brother", "sister",
-        "teacher", "friend", "doctor", "nurse",
-        "grandma", "grandpa", "baby", "family",
-
-        // Feelings
-        "happy", "sad", "mad", "tired", "scared",
-        "hurt", "excited", "nervous", "worried", "calm",
-
-        // Food & drinks
-        "water", "juice", "milk", "ice cream", "pizza", "sandwich",
-        "rice", "pasta", "noodles", "apple", "banana", "cookie",
-        "bread", "chips", "soup", "cereal", "egg",
-
-        // Places
-        "home", "school", "outside", "inside", "bathroom",
-        "kitchen", "park", "car", "bed", "table",
-
-        // Body parts
-        "head", "arm", "leg", "hand", "foot",
-        "stomach", "back", "eye", "ear", "mouth",
-
-        // Injuries / sensations
-        "pain", "itchy", "hot", "cold",
-        "bleeding", "cut", "bruise", "sick", "dizzy",
-        "cramp", "sprain",
-
-        // Actions
-        "sit", "stand", "walk", "run",
-        "jump", "sleep", "rest",
-        "open", "close", "look", "touch",
-        "listen", "wait", "wash", "clean",
-
-        // Extras
-        "yes", "no", "maybe",
-        "this", "that", "there", "here",
-        "mine", "yours",
-
-        // Describing words
-        "big", "small", "loud", "quiet",
-        "fast", "slow", "good", "bad",
-        "cold", "hot", "warm"
-    ]
+    private var localizedWordBank: [String] { provider.wordBank }
+    
+    private var localizedItems: [NeedItem] { provider.items }
     
     @State private var currentSentence: [String] = []
     @State private var typedSentence: String = ""
     
-    let items: [NeedItem] = [
-        NeedItem(image: "water", text: "I want water", category: .need),
-        NeedItem(image: "food", text: "I want food", category: .need),
-        NeedItem(image: "bed", text: "I want to sleep", category: .need),
-        NeedItem(image: "toilet", text: "I want to go to the bathroom", category: .need),
-        
-        NeedItem(image: "walk", text: "I want to go for a walk", category: .want),
-        NeedItem(image: "play", text: "I want to play", category: .want),
-        NeedItem(image: "mom", text: "I want mom", category: .want),
-        NeedItem(image: "dad", text: "I want dad", category: .want),
-        NeedItem(image: "brother", text: "I want my brother", category: .want),
-        NeedItem(image: "sister", text: "I want my sister", category: .want),
-        
-        NeedItem(image: "mad", text: "I feel mad", category: .feeling),
-        NeedItem(image: "sad", text: "I feel sad", category: .feeling),
-        NeedItem(image: "happy", text: "I feel happy", category: .feeling),
-        NeedItem(image: "anxious", text: "I feel anxious", category: .feeling),
-        NeedItem(image: "scared", text: "I feel scared", category: .feeling),
-        NeedItem(image: "jealous", text: "I feel jealous", category: .feeling)
-    ]
-
     let synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
         VStack {
-            if showIntro {
-                introView
+            if showLanguagePicker {
+                languagePickerView
+            } else if showIntro {
+                IntroView(
+                    startLabel: L("start_using_board"),
+                    hearQuickSummaryLabel: L("hear_quick_summary"),
+                    onStart: {
+                        showIntro = false
+                        let message: String = L("prompt_choose_category")
+                        speak(text: message)
+                    },
+                    onHearQuickSummary: {
+                        speak(text: L("quick_summary_text"))
+                    }
+                )
             } else {
                 mainContent
             }
         }
+        .onAppear {
+            // If a language was previously selected, skip picker
+            if !selectedLanguageCode.isEmpty {
+                showLanguagePicker = false
+            }
+        }
     }
     
-    // MARK: - Intro View (more detailed)
-    private var introView: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                Text("Communicating with Community")
-                    .font(.largeTitle.bold())
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+    // MARK: - Language Picker (first screen)
+    private var languagePickerView: some View {
+        VStack(spacing: 30) {
+            Text(L("choose_language_title"))
+                .font(.largeTitle)
+                .padding()
 
-                Text("What this app does")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                
-                Text("""
-This app is designed for people who find talking difficult, tiring, or stressful. It gives them simple tools to share what they need, what they want, and how they feel by tapping pictures and choosing words. When the user taps an item, the device speaks the sentence out loud using the built-in system voice.
-""")
-                    .font(.body)
-                    .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Main parts of the app")
-                        .font(.title3.bold())
-                    
-                    Text("""
-• **Needs** – quick phrases like “I want water”, “I want food”, or “I want to sleep”.  
-• **Wants** – things the user might ask for, such as going for a walk or calling a family member.  
-• **Feelings** – emotional words like happy, sad, mad, scared, anxious, or jealous.  
-• **Sentence Builder** – a flexible area where the user can tap words from a word bank or type their own sentence and have it spoken aloud.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Why this app can be helpful")
-                        .font(.title3.bold())
-                    
-                    Text("""
-• It supports users who are non-speaking or have limited speech.  
-• It reduces pressure to “find the right words” in the moment.  
-• It can give the user more control over daily routines and choices.  
-• It can help adults better understand pain, discomfort, and feelings without guessing.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Examples of how to use this app")
-                        .font(.title3.bold())
-                    
-                    Text("""
-• **At home:** asking for water, food, a break, or help with the bathroom.  
-• **At school:** telling a teacher how they feel, asking to go to the nurse, or saying they are tired or overwhelmed.  
-• **In the community:** telling a parent they are scared, hurt, or need to leave a busy place.  
-• **During therapy:** giving the user a predictable way to answer questions and make choices.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("How adults can support the user")
-                        .font(.title3.bold())
-                    
-                    Text("""
-• Sit next to the user and show them how to tap pictures and words.  
-• Model sentences out loud, for example: tap “I”, “feel”, “happy” and say the sentence with the device.  
-• Offer the app during real situations instead of only “practice time”.  
-• Respond to the message as real communication, even if the sentence is short or not perfect.  
-• Be patient and let the user explore. Mistaps and playful taps are part of learning.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("About the Sentence Builder")
-                        .font(.title3.bold())
-                    
-                    Text("""
-The Sentence Builder lets the user go beyond fixed picture phrases:
-
-• They can tap words like “I”, “want”, “pizza”, “now”, “please” to build their own sentence.  
-• The app shows the sentence on the screen and speaks it out loud.  
-• A typing box lets users who can spell type any sentence they want and hear it spoken.  
-This is useful for more advanced users who know what they want to say but need help speaking it.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Privacy and data")
-                        .font(.title3.bold())
-                    
-                    Text("""
-• The app does not require creating an account or logging in.  
-• It does not upload the user’s words or sentences to a server.  
-• All speech is generated using the device’s own text-to-speech system.  
-• The app is meant to be simple, safe, and focused only on communication.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Important note")
-                        .font(.title3.bold())
-                    
-                    Text("""
-This app is a **support tool**, not a medical device. It does not replace speech therapy, medical care, or professional advice. Caregivers and professionals should decide how to best use it as part of the user’s overall support plan.
-""")
-                        .font(.body)
-                }
-                .padding(.horizontal)
-
-                Button(action: {
-                    showIntro = false
-                    speak(text: "Choose a category to start.")
-                }) {
-                    Text("Start Using the Board")
-                        .font(.title2)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue.opacity(0.3))
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
-                
-                Button(action: {
-                    speak(text: "This app helps people communicate their needs, wants, feelings, and custom sentences by tapping pictures, choosing words, or typing.")
-                }) {
-                    Text("Hear a Quick Summary")
-                        .font(.body)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
+            // Two large buttons similar to the rest of the app style
+            HStack(spacing: 30) {
+                languageButton(for: .english, color: .blue)
+                languageButton(for: .hindi, color: .green)
             }
-            .padding(.vertical)
+            .padding(.horizontal)
+
+            Button(action: {
+                // Voice a hint in currently default language (English fallback)
+                speak(text: L("prompt_select_language"))
+            }) {
+                Text(L("hear_prompt"))
+                    .font(.body)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+            }
+            .padding(.horizontal)
+
+            Spacer()
+        }
+    }
+
+    private func languageButton(for language: AppLanguage, color: Color) -> some View {
+        Button(action: {
+            selectedLanguageCode = language.rawValue
+            showLanguagePicker = false
+            switch language {
+            case .english:
+                speak(text: L("confirm_language_selected_en"))
+            case .hindi:
+                speak(text: L("confirm_language_selected_hi"))
+            }
+        }) {
+            Text(language.displayName)
+                .font(.title)
+                .padding()
+                .frame(width: 160, height: 120)
+                .background(color.opacity(0.3))
+                .cornerRadius(15)
         }
     }
     
@@ -262,15 +137,21 @@ This app is a **support tool**, not a medical device. It does not replace speech
             HStack {
                 Spacer()
                 Button(action: {
+                    let msg = L("prompt_info")
+                    speak(text: msg)
                     showIntro = true
-                    speak(text: "Information about this app.")
                 }) {
                     HStack {
                         Image(systemName: "info.circle")
-                        Text("Info")
+                        Text(L("info"))
                     }
                 }
                 .padding()
+                
+                Button(action: { showLanguagePicker = true }) {
+                    HStack { Image(systemName: "globe"); Text(L("change_language")) }
+                }
+                .padding(.trailing)
             }
             
             if isSentenceBuilderActive {
@@ -286,20 +167,20 @@ This app is a **support tool**, not a medical device. It does not replace speech
     // MARK: - Main Menu
     private var mainMenu: some View {
         VStack(spacing: 30) {
-            Text("Choose a Category")
+            Text(L("choose_category"))
                 .font(.largeTitle)
                 .padding()
             
             HStack(spacing: 30) {
-                categoryButton(title: "Needs", color: .red) {
+                categoryButton(title: provider.categoryTitle(for: .need), color: .red) {
                     selectedCategory = .need
                 }
-                categoryButton(title: "Wants", color: .green) {
+                categoryButton(title: provider.categoryTitle(for: .want), color: .green) {
                     selectedCategory = .want
                 }
             }
             
-            categoryButton(title: "Feelings", color: .blue) {
+            categoryButton(title: provider.categoryTitle(for: .feeling), color: .blue) {
                 selectedCategory = .feeling
             }
             
@@ -307,9 +188,10 @@ This app is a **support tool**, not a medical device. It does not replace speech
                 isSentenceBuilderActive = true
                 currentSentence.removeAll()
                 typedSentence = ""
-                speak(text: "Sentence builder")
+                let msg = L("prompt_sentence_builder")
+                speak(text: msg)
             }) {
-                Text("Sentence Builder")
+                Text(L("sentence_builder"))
                     .font(.title2)
                     .padding()
                     .frame(width: 260, height: 100)
@@ -336,21 +218,23 @@ This app is a **support tool**, not a medical device. It does not replace speech
     // MARK: - Category View
     private func categoryView(for category: NeedItem.Category) -> some View {
         VStack {
-            Button("← Back") {
+            Button(action: {
                 selectedCategory = nil
-                speak(text: "Back to menu")
+                let msg = L("prompt_back_to_menu")
+                speak(text: msg)
+            }) {
+                Text("← " + L("back"))
             }
             .font(.title2)
             .padding()
             
-            Text(category == .need ? "Needs" :
-                 category == .want ? "Wants" : "Feelings")
+            Text(provider.categoryTitle(for: category))
                 .font(.largeTitle)
                 .padding()
             
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 20) {
-                    ForEach(items.filter { $0.category == category }) { item in
+                    ForEach(localizedItems.filter { $0.category == category }) { item in
                         Button(action: {
                             speak(text: item.text)
                         }) {
@@ -377,22 +261,25 @@ This app is a **support tool**, not a medical device. It does not replace speech
     // MARK: - Sentence Builder
     private var sentenceBuilderView: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Button("← Back") {
+            Button(action: {
                 isSentenceBuilderActive = false
                 currentSentence.removeAll()
                 typedSentence = ""
-                speak(text: "Back to menu")
+                let msg = L("prompt_back_to_menu")
+                speak(text: msg)
+            }) {
+                Text("← " + L("back"))
             }
             .font(.title2)
             .padding(.horizontal)
             
-            Text("Sentence Builder")
+            Text(L("sentence_builder"))
                 .font(.largeTitle)
                 .padding(.horizontal)
             
             // Word-bank sentence
             VStack(alignment: .leading) {
-                Text("Tap words to build a sentence:")
+                Text(L("title_word_bank_sentence"))
                     .font(.headline)
                 
                 Text(currentSentence.joined(separator: " "))
@@ -406,15 +293,15 @@ This app is a **support tool**, not a medical device. It does not replace speech
             .padding(.horizontal)
             
             HStack(spacing: 16) {
-                Button("Speak Word Bank Sentence") {
+                Button(L("speak_word_bank")) {
                     let s = currentSentence.joined(separator: " ")
-                    speak(text: s.isEmpty ? "Please choose some words." : s)
+                    speak(text: s.isEmpty ? L("prompt_choose_words") : s)
                 }
                 .padding()
                 .background(Color.blue.opacity(0.3))
                 .cornerRadius(10)
                 
-                Button("Clear Words") {
+                Button(L("clear_words")) {
                     currentSentence.removeAll()
                 }
                 .padding()
@@ -425,22 +312,27 @@ This app is a **support tool**, not a medical device. It does not replace speech
             
             // Typed sentence
             VStack(alignment: .leading, spacing: 8) {
-                Text("Or type your own sentence:")
+                Text(L("type_your_sentence"))
                     .font(.headline)
                 
-                TextField("Type here…", text: $typedSentence)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                LanguageAwareTextField(
+                    placeholder: L("type_here"),
+                    text: $typedSentence,
+                    languageCode: currentLanguage.rawValue
+                )
+                .frame(height: 40)
+                .padding(.horizontal, 4)
                 
                 HStack(spacing: 16) {
-                    Button("Speak Typed Sentence") {
+                    Button(L("speak_typed_sentence")) {
                         let trimmed = typedSentence.trimmingCharacters(in: .whitespacesAndNewlines)
-                        speak(text: trimmed.isEmpty ? "Please type a sentence." : trimmed)
+                        speak(text: trimmed.isEmpty ? L("prompt_type_sentence") : trimmed)
                     }
                     .padding()
                     .background(Color.green.opacity(0.3))
                     .cornerRadius(10)
                     
-                    Button("Clear") {
+                    Button(L("clear")) {
                         typedSentence = ""
                     }
                     .padding()
@@ -451,13 +343,13 @@ This app is a **support tool**, not a medical device. It does not replace speech
             .padding(.horizontal)
             
             // Word bank
-            Text("Word Bank")
+            Text(L("word_bank"))
                 .font(.headline)
                 .padding(.horizontal)
             
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 12) {
-                    ForEach(wordBank, id: \.self) { word in
+                    ForEach(localizedWordBank, id: \.self) { word in
                         Button(action: {
                             currentSentence.append(word)
                         }) {
@@ -476,21 +368,34 @@ This app is a **support tool**, not a medical device. It does not replace speech
         }
     }
 
+    // Centralized localization helper to ensure we always use the resolved current language
+    private func L(_ key: String) -> String {
+        Localizer.string(key, langCode: currentLanguage.rawValue)
+    }
+    
     // MARK: - Text-To-Speech
     func speak(text: String) {
         DispatchQueue.main.async {
             let utterance = AVSpeechUtterance(string: text)
-            utterance.voice = AVSpeechSynthesisVoice(language: bestAvailableVoice())
+            utterance.voice = AVSpeechSynthesisVoice(language: bestAvailableVoice(for: selectedLanguageCode))
             utterance.rate = AVSpeechUtteranceDefaultSpeechRate
             synthesizer.speak(utterance)
         }
     }
 
-    func bestAvailableVoice() -> String {
-        let langs = AVSpeechSynthesisVoice.speechVoices().map { $0.language }
-        if langs.contains("en-US") { return "en-US" }
-        if langs.contains("en-GB") { return "en-GB" }
-        if langs.contains("en-IN") { return "en-IN" }
-        return AVSpeechSynthesisVoice.currentLanguageCode()
+    func bestAvailableVoice(for selectedLangCode: String) -> String {
+        let available = Set(AVSpeechSynthesisVoice.speechVoices().map { $0.language })
+        // Determine target language preferences
+        let target: AppLanguage = AppLanguage(rawValue: selectedLangCode) ?? .english
+        for code in target.preferredVoiceCodes {
+            if available.contains(code) { return code }
+        }
+        // Fallbacks: try current device language, then any English, then any available
+        if available.contains(AVSpeechSynthesisVoice.currentLanguageCode()) {
+            return AVSpeechSynthesisVoice.currentLanguageCode()
+        }
+        if available.contains("en-US") { return "en-US" }
+        return AVSpeechSynthesisVoice.speechVoices().first?.language ?? "en-US"
     }
 }
+
