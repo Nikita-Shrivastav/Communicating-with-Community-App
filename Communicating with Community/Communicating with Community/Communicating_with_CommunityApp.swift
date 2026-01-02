@@ -1,30 +1,47 @@
 import SwiftUI
+import SwiftUI
 #if os(iOS)
 import UIKit
 #endif
 import AVFoundation
 
 // MARK: - Main Communication Board View
+
+/// The main view for the communication board app
+/// Supports multiple languages with text-to-speech
 struct SpeechBoardView: View {
+    
+    // MARK: - Types
+    
+    /// Supported languages in the app
     enum AppLanguage: String, CaseIterable, Identifiable {
         case english = "en"
         case hindi = "hi"
+        case spanish = "es"
+        case chinese = "zh"
+        
         var id: String { rawValue }
+        
         var displayName: String {
             switch self {
             case .english: return EnglishLocalizationProvider().displayName
             case .hindi: return HindiLocalizationProvider().displayName
+            case .spanish: return SpanishLocalizationProvider().displayName
+            case .chinese: return ChineseLocalizationProvider().displayName
             }
         }
+        
         var preferredVoiceCodes: [String] {
             switch self {
-            case .english:
-                return EnglishLocalizationProvider().preferredVoiceCodes
-            case .hindi:
-                return HindiLocalizationProvider().preferredVoiceCodes
+            case .english: return EnglishLocalizationProvider().preferredVoiceCodes
+            case .hindi: return HindiLocalizationProvider().preferredVoiceCodes
+            case .spanish: return SpanishLocalizationProvider().preferredVoiceCodes
+            case .chinese: return ChineseLocalizationProvider().preferredVoiceCodes
             }
         }
     }
+    
+    // MARK: - State Properties
 
     @AppStorage("selectedLanguageCode") private var selectedLanguageCode: String = ""
     @State private var showLanguagePicker: Bool = true
@@ -33,18 +50,28 @@ struct SpeechBoardView: View {
     @State private var showIntro = true
     @State private var isSentenceBuilderActive = false
 
-    private var currentLanguage: AppLanguage { AppLanguage(rawValue: selectedLanguageCode) ?? .english }
+    // MARK: - Computed Properties
+    
+    private var currentLanguage: AppLanguage {
+        AppLanguage(rawValue: selectedLanguageCode) ?? .english
+    }
     
     private var provider: LocalizationProvider {
         switch currentLanguage {
         case .english: return EnglishLocalizationProvider()
         case .hindi: return HindiLocalizationProvider()
+        case .spanish: return SpanishLocalizationProvider()
+        case .chinese: return ChineseLocalizationProvider()
         }
     }
 
-    private var localizedWordBank: [String] { provider.wordBank }
+    private var localizedWordBank: [String] {
+        provider.wordBank
+    }
     
-    private var localizedItems: [NeedItem] { provider.items }
+    private var localizedItems: [NeedItem] {
+        provider.items
+    }
     
     @State private var currentSentence: [String] = []
     @State private var typedSentence: String = ""
@@ -80,17 +107,25 @@ struct SpeechBoardView: View {
         }
     }
     
-    // MARK: - Language Picker (first screen)
+    // MARK: - Language Picker View
+    
     private var languagePickerView: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 20) {
             Text(L("choose_language_title"))
                 .font(.largeTitle)
                 .padding()
 
-            // Two large buttons similar to the rest of the app style
-            HStack(spacing: 30) {
-                languageButton(for: .english, color: .blue)
-                languageButton(for: .hindi, color: .green)
+            // Grid of language buttons
+            VStack(spacing: 20) {
+                HStack(spacing: 20) {
+                    languageButton(for: .english, color: .blue)
+                    languageButton(for: .hindi, color: .green)
+                }
+                
+                HStack(spacing: 20) {
+                    languageButton(for: .spanish, color: .orange)
+                    languageButton(for: .chinese, color: .red)
+                }
             }
             .padding(.horizontal)
 
@@ -115,12 +150,9 @@ struct SpeechBoardView: View {
         Button(action: {
             selectedLanguageCode = language.rawValue
             showLanguagePicker = false
-            switch language {
-            case .english:
-                speak(text: L("confirm_language_selected_en"))
-            case .hindi:
-                speak(text: L("confirm_language_selected_hi"))
-            }
+            // Dynamically construct confirmation key based on language code
+            let confirmationKey = "confirm_language_selected_\(language.rawValue)"
+            speak(text: L(confirmationKey))
         }) {
             Text(language.displayName)
                 .font(.title)
