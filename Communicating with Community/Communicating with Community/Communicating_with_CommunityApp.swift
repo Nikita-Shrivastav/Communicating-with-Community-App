@@ -19,6 +19,7 @@ struct SpeechBoardView: View {
         case hindi = "hi"
         case spanish = "es"
         case chinese = "zh"
+        case french = "fr"
         
         var id: String { rawValue }
         
@@ -28,6 +29,7 @@ struct SpeechBoardView: View {
             case .hindi: return HindiLocalizationProvider().displayName
             case .spanish: return SpanishLocalizationProvider().displayName
             case .chinese: return ChineseLocalizationProvider().displayName
+            case .french: return FrenchLocalizationProvider().displayName
             }
         }
         
@@ -37,6 +39,7 @@ struct SpeechBoardView: View {
             case .hindi: return HindiLocalizationProvider().preferredVoiceCodes
             case .spanish: return SpanishLocalizationProvider().preferredVoiceCodes
             case .chinese: return ChineseLocalizationProvider().preferredVoiceCodes
+            case .french: return FrenchLocalizationProvider().preferredVoiceCodes
             }
         }
     }
@@ -62,6 +65,7 @@ struct SpeechBoardView: View {
         case .hindi: return HindiLocalizationProvider()
         case .spanish: return SpanishLocalizationProvider()
         case .chinese: return ChineseLocalizationProvider()
+        case .french: return FrenchLocalizationProvider()
         }
     }
 
@@ -125,6 +129,10 @@ struct SpeechBoardView: View {
                 HStack(spacing: 20) {
                     languageButton(for: .spanish, color: .orange)
                     languageButton(for: .chinese, color: .red)
+                }
+                
+                HStack(spacing: 20) {
+                    languageButton(for: .french, color: .purple)
                 }
             }
             .padding(.horizontal)
