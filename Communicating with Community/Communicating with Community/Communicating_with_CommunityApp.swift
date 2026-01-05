@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUI
 #if os(iOS)
 import UIKit
 #endif
@@ -508,16 +507,26 @@ struct SpeechBoardView: View {
                 .padding(.horizontal)
             
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 12) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 12) {
                     ForEach(localizedWordBank, id: \.self) { word in
                         Button(action: {
                             currentSentence.append(word)
                         }) {
-                            Text(word)
-                                .padding(8)
-                                .frame(maxWidth: .infinity)
-                                .background(Color.purple.opacity(0.2))
-                                .cornerRadius(8)
+                            HStack(spacing: 6) {
+                                if let emoji = EmojiMapper.emoji(for: word, languageCode: currentLanguage.rawValue) {
+                                    Text(emoji)
+                                }
+                                Text(word)
+                                    .font(.body)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.8)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                            .padding(8)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.purple.opacity(0.2))
+                            .cornerRadius(8)
                         }
                     }
                 }
@@ -556,6 +565,108 @@ struct SpeechBoardView: View {
         }
         if available.contains("en-US") { return "en-US" }
         return AVSpeechSynthesisVoice.speechVoices().first?.language ?? "en-US"
+    }
+}
+
+// MARK: - Emoji Mapper for Word Bank
+struct EmojiMapper {
+    // Base, language-agnostic mappings by normalized lowercase word
+    private static let base: [String: String] = [
+        // Pronouns / People
+        "i": "🙋", "me": "🙋", "yo": "🙋", "मैं": "🙋", "我": "🙋",
+        "you": "👉", "tú": "👉", "usted": "👉", "आप": "👉", "你": "👉",
+        "we": "👥", "nosotros": "👥", "nosotras": "👥", "हम": "👥", "我们": "👥",
+        "they": "👥", "ellos": "👥", "ellas": "👥", "वे": "👥", "他们": "👥",
+        "he": "👨", "él": "👨", "वह": "👨", "他": "👨",
+        "she": "👩", "ella": "👩", "वह_स्त्री": "👩", "她": "👩",
+        "mom": "👩‍🍼", "mother": "👩‍🍼", "mamá": "👩‍🍼", "madre": "👩‍🍼", "माँ": "👩‍🍼", "妈妈": "👩‍🍼",
+        "dad": "👨‍🍼", "father": "👨‍🍼", "papá": "👨‍🍼", "padre": "👨‍🍼", "पापा": "👨‍🍼", "爸爸": "👨‍🍼",
+        "brother": "👦", "hermano": "👦", "भाई": "👦", "哥哥": "👦",
+        "sister": "👧", "hermana": "👧", "बहन": "👧", "姐姐": "👧",
+        "teacher": "👩‍🏫", "maestro": "👨‍🏫", "maestra": "👩‍🏫", "老师": "👩‍🏫",
+
+        // Core actions
+        "want": "✨", "quiero": "✨", "quieres": "✨", "चाहता हूँ": "✨", "想要": "✨",
+        "need": "❗️", "necesito": "❗️", "ज़रूरत": "❗️", "需要": "❗️",
+        "go": "➡️", "ir": "➡️", "जाना": "➡️", "去": "➡️",
+        "come": "⬅️", "venir": "⬅️", "आना": "⬅️", "来": "⬅️",
+        "help": "🆘", "ayuda": "🆘", "मदद": "🆘", "帮助": "🆘",
+        "more": "➕", "más": "➕", "और": "➕", "更多": "➕",
+        "stop": "⛔️", "alto": "⛔️", "रुको": "⛔️", "停": "⛔️",
+        "yes": "✅", "sí": "✅", "हाँ": "✅", "是": "✅",
+        "no": "❌", "no_es": "❌", "नहीं": "❌", "不是": "❌",
+        "please": "🙏", "por favor": "🙏", "कृपया": "🙏", "请": "🙏",
+        "thank you": "🤝", "gracias": "🤝", "धन्यवाद": "🤝", "谢谢": "🤝",
+
+        // Feelings
+        "happy": "😊", "feliz": "😊", "खुश": "😊", "开心": "😊",
+        "sad": "😢", "triste": "😢", "उदास": "😢", "难过": "😢",
+        "angry": "😠", "enojado": "😠", "enojada": "😠", "गुस्सा": "😠", "生气": "😠",
+        "scared": "😨", "asustado": "😨", "asustada": "😨", "डर": "😨", "害怕": "😨",
+        "tired": "😴", "cansado": "😴", "cansada": "😴", "थका": "😴", "累": "😴",
+        "sick": "🤒", "enfermo": "🤒", "enferma": "🤒", "बीमार": "🤒", "生病": "🤒",
+        "hurt": "🤕", "duele": "🤕", "痛": "🤕",
+
+        // Food & drink
+        "water": "💧", "agua": "💧", "पानी": "💧", "水": "💧",
+        "food": "🍽️", "comida": "🍽️", "खाना": "🍽️", "食物": "🍽️",
+        "eat": "🍽️", "comer": "🍽️", "吃": "🍽️",
+        "drink": "🥤", "beber": "🥤", "喝": "🥤",
+        "milk": "🥛", "leche": "🥛", "दूध": "🥛", "牛奶": "🥛",
+        "juice": "🧃", "jugo": "🧃", "रस": "🧃", "果汁": "🧃",
+        "pizza": "🍕", "披萨": "🍕",
+        "rice": "🍚", "arroz": "🍚", "चावल": "🍚", "米饭": "🍚",
+        "bread": "🍞", "pan": "🍞", "रोटी": "🍞", "面包": "🍞",
+        "apple": "🍎", "manzana": "🍎", "सेब": "🍎", "苹果": "🍎",
+
+        // Places
+        "home": "🏠", "house": "🏠", "casa": "🏠", "घर": "🏠", "家": "🏠",
+        "school": "🏫", "escuela": "🏫", "स्कूल": "🏫", "学校": "🏫",
+        "bathroom": "🚻", "baño": "🚻", "toilet": "🚻", "बाथरूम": "🚻", "厕所": "🚻",
+        "park": "🏞️", "parque": "🏞️", "पार्क": "🏞️", "公园": "🏞️",
+        "hospital": "🏥", "hospital_es": "🏥", "अस्पताल": "🏥", "医院": "🏥",
+
+        // Activities
+        "play": "🧩", "jugar": "🧩", "खेलना": "🧩", "玩": "🧩",
+        "sleep": "🛌", "dormir": "🛌", "सोना": "🛌", "睡觉": "🛌",
+        "read": "📖", "leer": "📖", "पढ़ना": "📖", "阅读": "📖",
+        "write": "✍️", "escribir": "✍️", "लिखना": "✍️", "写": "✍️",
+        "music": "🎵", "música": "🎵", "संगीत": "🎵", "音乐": "🎵",
+        "phone": "📱", "teléfono": "📱", "电话": "📱",
+
+        // Descriptors / helpers
+        "big": "🟦", "grande": "🟦", "बड़ा": "🟦", "大": "🟦",
+        "small": "🟩", "pequeño": "🟩", "छोटा": "🟩", "小": "🟩",
+        "hot": "🔥", "caliente": "🔥", "गरम": "🔥", "热": "🔥",
+        "cold": "🧊", "frío": "🧊", "ठंडा": "🧊", "冷": "🧊",
+        "clean": "🧼", "limpio": "🧼", "साफ": "🧼", "干净": "🧼",
+        "dirty": "🧹", "sucio": "🧹", "गंदा": "🧹", "脏": "🧹"
+    ]
+
+    // Language-specific overrides (use language code keys)
+    private static let languageOverrides: [String: [String: String]] = [
+        "en": [
+            "hurt": "🤕", "sick": "🤒", "bathroom": "🚻", "toilet": "🚻", "play": "🧩"
+        ],
+        "es": [
+            "baño": "🚻", "jugar": "🧩", "hospital": "🏥"
+        ],
+        "zh": [:],
+        "hi": [:],
+        "fr": [:]
+    ]
+
+    // Normalizes words for lookup (lowercased, trimmed)
+    private static func normalize(_ word: String) -> String {
+        word.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+    }
+
+    static func emoji(for word: String, languageCode: String) -> String? {
+        let norm = normalize(word)
+        let short = languageCode.split(separator: "-").first.map(String.init) ?? languageCode
+        if let langMap = languageOverrides[short], let e = langMap[norm] { return e }
+        if let e = base[norm] { return e }
+        return nil
     }
 }
 
