@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Xcode user files
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# User-specific files
+*.perspectivev3
+*.pbxuser
