@@ -273,24 +273,29 @@ struct SpeechBoardView: View {
                 .padding()
             
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 20) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 140))], spacing: 20) {
                     ForEach(localizedItems.filter { $0.category == category }) { item in
                         Button(action: {
                             speak(text: item.text)
                         }) {
-                            VStack {
+                            VStack(spacing: 8) {
                                 Image(item.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 100, height: 100)
+                                    .frame(width: 80, height: 80)
                                 Text(item.text)
-                                    .font(.headline)
+                                    .font(.subheadline)
+                                    .lineLimit(2)
                                     .multilineTextAlignment(.center)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .minimumScaleFactor(0.8)
                             }
                             .padding()
+                            .frame(minHeight: 140)
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(15)
                         }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding()

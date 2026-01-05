@@ -77,25 +77,39 @@ let spanishWordBank: [String] = [
 
 // Spanish localized items for categories
 let spanishItems: [NeedItem] = [
-    // Needs
+    // Needs (10 items)
     NeedItem(image: "water", text: "Quiero agua", category: .need),
     NeedItem(image: "food", text: "Quiero comida", category: .need),
     NeedItem(image: "bed", text: "Quiero dormir", category: .need),
     NeedItem(image: "toilet", text: "Quiero ir al baño", category: .need),
+    NeedItem(image: "help", text: "Necesito ayuda", category: .need),
+    NeedItem(image: "medicine", text: "Necesito medicina", category: .need),
+    NeedItem(image: "break", text: "Necesito un descanso", category: .need),
+    NeedItem(image: "quiet", text: "Necesito silencio", category: .need),
+    NeedItem(image: "hug", text: "Necesito un abrazo", category: .need),
+    NeedItem(image: "space", text: "Necesito espacio", category: .need),
     
-    // Wants
+    // Wants (10 items)
     NeedItem(image: "walk", text: "Quiero caminar", category: .want),
     NeedItem(image: "play", text: "Quiero jugar", category: .want),
     NeedItem(image: "mom", text: "Quiero a mamá", category: .want),
     NeedItem(image: "dad", text: "Quiero a papá", category: .want),
     NeedItem(image: "brother", text: "Quiero a mi hermano", category: .want),
     NeedItem(image: "sister", text: "Quiero a mi hermana", category: .want),
+    NeedItem(image: "friend", text: "Quiero ver a mi amigo/a", category: .want),
+    NeedItem(image: "outside", text: "Quiero salir afuera", category: .want),
+    NeedItem(image: "watch", text: "Quiero ver algo", category: .want),
+    NeedItem(image: "music", text: "Quiero escuchar música", category: .want),
     
-    // Feelings
+    // Feelings (10 items)
     NeedItem(image: "mad", text: "Me siento enojado/a", category: .feeling),
     NeedItem(image: "sad", text: "Me siento triste", category: .feeling),
     NeedItem(image: "happy", text: "Me siento feliz", category: .feeling),
     NeedItem(image: "anxious", text: "Me siento ansioso/a", category: .feeling),
     NeedItem(image: "scared", text: "Me siento asustado/a", category: .feeling),
-    NeedItem(image: "jealous", text: "Me siento celoso/a", category: .feeling)
+    NeedItem(image: "jealous", text: "Me siento celoso/a", category: .feeling),
+    NeedItem(image: "tired", text: "Me siento cansado/a", category: .feeling),
+    NeedItem(image: "excited", text: "Me siento emocionado/a", category: .feeling),
+    NeedItem(image: "confused", text: "Me siento confundido/a", category: .feeling),
+    NeedItem(image: "sick", text: "Me siento enfermo/a", category: .feeling)
 ]
