@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		224852552F0B4F6800E14079 /* GuidedTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224852542F0B4F6800E14079 /* GuidedTutorialView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		111374672E7BCC9200323579 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		111374552E7BCC9000323579 /* Communicating with Community.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Communicating with Community.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		111374662E7BCC9200323579 /* Communicating with CommunityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Communicating with CommunityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		111374702E7BCC9200323579 /* Communicating with CommunityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Communicating with CommunityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		224852542F0B4F6800E14079 /* GuidedTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedTutorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -92,6 +97,7 @@
 				111374692E7BCC9200323579 /* Communicating with CommunityTests */,
 				111374732E7BCC9200323579 /* Communicating with CommunityUITests */,
 				111374562E7BCC9000323579 /* Products */,
+				224852542F0B4F6800E14079 /* GuidedTutorialView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224852552F0B4F6800E14079 /* GuidedTutorialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

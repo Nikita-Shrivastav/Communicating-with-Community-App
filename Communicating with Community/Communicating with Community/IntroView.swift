@@ -5,6 +5,21 @@ struct IntroView: View {
     let hearQuickSummaryLabel: String
     let onStart: () -> Void
     let onHearQuickSummary: () -> Void
+    let onStartTutorial: (() -> Void)?
+    
+    init(
+        startLabel: String,
+        hearQuickSummaryLabel: String,
+        onStart: @escaping () -> Void,
+        onHearQuickSummary: @escaping () -> Void,
+        onStartTutorial: (() -> Void)? = nil
+    ) {
+        self.startLabel = startLabel
+        self.hearQuickSummaryLabel = hearQuickSummaryLabel
+        self.onStart = onStart
+        self.onHearQuickSummary = onHearQuickSummary
+        self.onStartTutorial = onStartTutorial
+    }
 
     var body: some View {
         ScrollView {
@@ -97,6 +112,23 @@ struct IntroView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
+                
+                if let onStartTutorial = onStartTutorial {
+                    Button(action: {
+                        onStartTutorial()
+                    }) {
+                        HStack {
+                            Image(systemName: "graduationcap.fill")
+                            Text("Guided Tutorial")
+                        }
+                        .font(.title3)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green.opacity(0.3))
+                        .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
+                }
                 
                 Button(action: {
                     onHearQuickSummary()

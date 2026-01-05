@@ -52,6 +52,7 @@ struct SpeechBoardView: View {
     @State private var selectedCategory: NeedItem.Category? = nil
     @State private var showIntro = true
     @State private var isSentenceBuilderActive = false
+    @State private var showTutorial = false
 
     // MARK: - Computed Properties
     
@@ -86,6 +87,10 @@ struct SpeechBoardView: View {
         VStack {
             if showLanguagePicker {
                 languagePickerView
+            } else if showTutorial {
+                GuidedTutorialView(languageCode: currentLanguage.rawValue) {
+                    showTutorial = false
+                }
             } else if showIntro {
                 IntroView(
                     startLabel: L("start_using_board"),
@@ -97,6 +102,10 @@ struct SpeechBoardView: View {
                     },
                     onHearQuickSummary: {
                         speak(text: L("quick_summary_text"))
+                    },
+                    onStartTutorial: {
+                        showIntro = false
+                        showTutorial = true
                     }
                 )
             } else {
@@ -176,6 +185,17 @@ struct SpeechBoardView: View {
         VStack {
             HStack {
                 Spacer()
+                
+                Button(action: {
+                    showTutorial = true
+                }) {
+                    HStack {
+                        Image(systemName: "graduationcap.fill")
+                        Text(L("tutorial_button"))
+                    }
+                }
+                .padding()
+                
                 Button(action: {
                     let msg = L("prompt_info")
                     speak(text: msg)
@@ -206,58 +226,130 @@ struct SpeechBoardView: View {
     
     // MARK: - Main Menu
     private var mainMenu: some View {
-        VStack(spacing: 30) {
-            Text(L("choose_category"))
-                .font(.largeTitle)
-                .padding()
+        VStack(spacing: 0) {
+            // Title section
+            VStack(spacing: 12) {
+                Text(L("choose_category"))
+                    .font(.largeTitle.bold())
+                    .multilineTextAlignment(.center)
+                
+                Text(L("menu_subtitle"))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.top, 20)
+            .padding(.horizontal)
             
-            HStack(spacing: 30) {
-                categoryButton(title: provider.categoryTitle(for: .need), color: .red) {
-                    selectedCategory = .need
+            Spacer()
+            
+            // Main category buttons in 2x2 grid
+            VStack(spacing: 20) {
+                HStack(spacing: 20) {
+                    categoryButton(
+                        title: provider.categoryTitle(for: .need),
+                        icon: "heart.fill",
+                        color: .red,
+                        action: { selectedCategory = .need }
+                    )
+                    
+                    categoryButton(
+                        title: provider.categoryTitle(for: .want),
+                        icon: "star.fill",
+                        color: .green,
+                        action: { selectedCategory = .want }
+                    )
                 }
-                categoryButton(title: provider.categoryTitle(for: .want), color: .green) {
-                    selectedCategory = .want
+                
+                HStack(spacing: 20) {
+                    categoryButton(
+                        title: provider.categoryTitle(for: .feeling),
+                        icon: "face.smiling.fill",
+                        color: .blue,
+                        action: { selectedCategory = .feeling }
+                    )
+                    
+                    sentenceBuilderButton
                 }
             }
+            .padding(.horizontal, 20)
             
-            categoryButton(title: provider.categoryTitle(for: .feeling), color: .blue) {
-                selectedCategory = .feeling
-            }
-            
-            Button(action: {
-                isSentenceBuilderActive = true
-                currentSentence.removeAll()
-                typedSentence = ""
-                let msg = L("prompt_sentence_builder")
-                speak(text: msg)
-            }) {
-                Text(L("sentence_builder"))
-                    .font(.title2)
-                    .padding()
-                    .frame(width: 260, height: 100)
-                    .background(Color.purple.opacity(0.3))
-                    .cornerRadius(15)
-            }
+            Spacer()
         }
     }
     
-    private func categoryButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+    private var sentenceBuilderButton: some View {
+        Button(action: {
+            isSentenceBuilderActive = true
+            currentSentence.removeAll()
+            typedSentence = ""
+            let msg = L("prompt_sentence_builder")
+            speak(text: msg)
+        }) {
+            VStack(spacing: 12) {
+                Image(systemName: "text.bubble.fill")
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                
+                Text(L("sentence_builder"))
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 160)
+            .padding()
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.purple, Color.purple.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(20)
+            .shadow(color: Color.purple.opacity(0.3), radius: 8, x: 0, y: 4)
+        }
+    }
+    
+    private func categoryButton(title: String, icon: String, color: Color, action: @escaping () -> Void) -> some View {
         Button(action: {
             action()
             speak(text: title)
         }) {
-            Text(title)
-                .font(.title)
-                .padding()
-                .frame(width: 160, height: 120)
-                .background(color.opacity(0.3))
-                .cornerRadius(15)
+            VStack(spacing: 12) {
+                Image(systemName: icon)
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                
+                Text(title)
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 160)
+            .padding()
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [color, color.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(20)
+            .shadow(color: color.opacity(0.3), radius: 8, x: 0, y: 4)
         }
     }
     
     // MARK: - Category View
     private func categoryView(for category: NeedItem.Category) -> some View {
-        VStack {
+        let categoryColor = colorForCategory(category)
+        
+        return VStack {
             Button(action: {
                 selectedCategory = nil
                 let msg = L("prompt_back_to_menu")
@@ -269,7 +361,7 @@ struct SpeechBoardView: View {
             .padding()
             
             Text(provider.categoryTitle(for: category))
-                .font(.largeTitle)
+                .font(.largeTitle.bold())
                 .padding()
             
             ScrollView {
@@ -278,13 +370,16 @@ struct SpeechBoardView: View {
                         Button(action: {
                             speak(text: item.text)
                         }) {
-                            VStack(spacing: 8) {
+                            VStack(spacing: 12) {
                                 Image(item.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 80, height: 80)
+                                    .frame(width: 70, height: 70)
+                                    .foregroundColor(.white)
+                                
                                 Text(item.text)
-                                    .font(.subheadline)
+                                    .font(.headline.bold())
+                                    .foregroundColor(.white)
                                     .lineLimit(2)
                                     .multilineTextAlignment(.center)
                                     .fixedSize(horizontal: false, vertical: true)
@@ -292,14 +387,34 @@ struct SpeechBoardView: View {
                             }
                             .padding()
                             .frame(minHeight: 140)
-                            .background(Color.gray.opacity(0.2))
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [categoryColor.opacity(0.9), categoryColor.opacity(0.7)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
                             .cornerRadius(15)
+                            .shadow(color: categoryColor.opacity(0.4), radius: 6, x: 0, y: 3)
                         }
                         .buttonStyle(.plain)
                     }
                 }
                 .padding()
             }
+        }
+    }
+    
+    // Helper function to get color for each category
+    private func colorForCategory(_ category: NeedItem.Category) -> Color {
+        switch category {
+        case .need:
+            return .red
+        case .want:
+            return .green
+        case .feeling:
+            return .blue
         }
     }
     

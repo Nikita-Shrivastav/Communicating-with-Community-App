@@ -52,7 +52,58 @@ struct Localizer {
         "type_here": "यहाँ टाइप करें",
         "speak_typed_sentence": "टाइप किया वाक्य बोलें",
         "clear": "साफ़ करें",
-        "word_bank": "शब्द बैंक"
+        "word_bank": "शब्द बैंक",
+        
+        // Main menu
+        "menu_subtitle": "अपनी ज़रूरत साझा करने के लिए एक श्रेणी पर टैप करें",
+        
+        // Tutorial
+        "tutorial_button": "निर्देशित ट्यूटोरियल",
+        "tutorial_exit": "बाहर निकलें",
+        "tutorial_step_indicator": "चरण %@ / %@",
+        "tutorial_hear_step": "इस चरण को सुनें",
+        "tutorial_try_it": "इसे आज़माएं",
+        "tutorial_previous": "पिछला",
+        "tutorial_next": "अगला",
+        "tutorial_finish": "समाप्त करें",
+        "tutorial_speak": "बोलें",
+        "tutorial_clear": "साफ़ करें",
+        "tutorial_language_change_note": "आप ट्यूटोरियल के दौरान किसी भी समय भाषा बदल सकते हैं",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "ऐप में आपका स्वागत है",
+        "tutorial_welcome_description": "यह ट्यूटोरियल आपको दिखाएगा कि संचार बोर्ड का उपयोग कैसे करें। आप अपनी आवश्यकताओं, इच्छाओं और भावनाओं को साझा करने के लिए चित्रों पर टैप कर सकते हैं, या वाक्य बनाने के लिए शब्दों को चुन सकते हैं।",
+        
+        "tutorial_categories_title": "श्रेणियाँ चुनें",
+        "tutorial_categories_description": "मुख्य मेनू में तीन श्रेणियाँ हैं: आवश्यकताएँ (जैसे पानी, भोजन), इच्छाएँ (जैसे टहलना, किसी को फोन करना), और भावनाएँ (जैसे खुश, उदास, नाराज़)। इनमें से किसी एक पर टैप करें और डिवाइस इसे ज़ोर से बोलेगा।",
+        
+        "tutorial_needs_demo_title": "आवश्यकताओं का उपयोग करें",
+        "tutorial_needs_demo_description": "आप जो कहना चाहते हैं उस चित्र पर टैप करें। डिवाइस तुरंत उस शब्द को बोलेगा। यह कोशिश करें!",
+        
+        "tutorial_sentence_builder_title": "वाक्य बनाने वाला",
+        "tutorial_sentence_builder_description": "वाक्य बनाने वाला आपको अपने स्वयं के वाक्य बनाने देता है। आप दो तरीकों का उपयोग कर सकते हैं: शब्द बैंक से शब्दों पर टैप करना, या अपना खुद का वाक्य टाइप करना।",
+        
+        "tutorial_word_bank_title": "शब्द बैंक",
+        "tutorial_word_bank_description": "शब्द बैंक में आम शब्दों की एक सूची है। वाक्य बनाने के लिए शब्दों पर टैप करें, फिर स्पीकर बटन दबाएं ताकि डिवाइस इसे ज़ोर से बोले।",
+        
+        "tutorial_typing_title": "टाइपिंग",
+        "tutorial_typing_description": "यदि आप जो कहना चाहते हैं वह शब्द बैंक में नहीं है, तो आप कुछ भी टाइप कर सकते हैं! बस टेक्स्ट बॉक्स में अपना वाक्य टाइप करें और इसे ज़ोर से बोलने के लिए स्पीक बटन दबाएं।",
+        
+        "tutorial_completion_title": "आप तैयार हैं!",
+        "tutorial_completion_description": "बढ़िया काम! अब आप ऐप का उपयोग करने के लिए तैयार हैं। याद रखें: आप कभी भी मुख्य मेनू में जानकारी बटन दबाकर इस ट्यूटोरियल पर वापस आ सकते हैं। संचार का आनंद लें!",
+        "tutorial_completion_message": "ट्यूटोरियल पूरा हो गया! अब आप ऐप का उपयोग करने के लिए तैयार हैं।",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "आइटम पर टैप करें और सुनें",
+        "tutorial_demo_water": "पानी",
+        "tutorial_demo_food": "खाना",
+        "tutorial_demo_help": "मदद",
+        "tutorial_your_sentence": "आपका वाक्य",
+        "tutorial_empty_sentence": "शब्द चुनना शुरू करें",
+        "tutorial_tap_words": "वाक्य बनाने के लिए शब्दों पर टैप करें",
+        "tutorial_type_anything": "कुछ भी टाइप करें और इसे ज़ोर से बोलें",
+        "tutorial_type_here": "यहाँ टाइप करें",
+        "tutorial_type_something_first": "कृपया पहले कुछ टाइप करें"
     ]
     
     private static let enInlineFallback: [String: String] = [
@@ -94,7 +145,58 @@ struct Localizer {
         "type_here": "Type here",
         "speak_typed_sentence": "Speak Typed Sentence",
         "clear": "Clear",
-        "word_bank": "Word Bank"
+        "word_bank": "Word Bank",
+        
+        // Main menu
+        "menu_subtitle": "Tap a category to share what you need",
+        
+        // Tutorial
+        "tutorial_button": "Guided Tutorial",
+        "tutorial_exit": "Exit",
+        "tutorial_step_indicator": "Step %@ of %@",
+        "tutorial_hear_step": "Hear This Step",
+        "tutorial_try_it": "Try It",
+        "tutorial_previous": "Previous",
+        "tutorial_next": "Next",
+        "tutorial_finish": "Finish",
+        "tutorial_speak": "Speak",
+        "tutorial_clear": "Clear",
+        "tutorial_language_change_note": "You can change the language at any time during the tutorial",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "Welcome to the App",
+        "tutorial_welcome_description": "This tutorial will show you how to use the communication board. You can tap pictures to share your needs, wants, and feelings, or build sentences by choosing words.",
+        
+        "tutorial_categories_title": "Choose Categories",
+        "tutorial_categories_description": "The main menu has three categories: Needs (like water, food), Wants (like going for a walk, calling someone), and Feelings (like happy, sad, angry). Tap any of these and the device will speak it out loud.",
+        
+        "tutorial_needs_demo_title": "Use Needs",
+        "tutorial_needs_demo_description": "Tap a picture of what you want to say. The device will immediately speak that word. Try it!",
+        
+        "tutorial_sentence_builder_title": "Sentence Builder",
+        "tutorial_sentence_builder_description": "The Sentence Builder lets you create your own sentences. You can use two methods: tapping words from the word bank, or typing your own sentence.",
+        
+        "tutorial_word_bank_title": "Word Bank",
+        "tutorial_word_bank_description": "The word bank has a list of common words. Tap words to build a sentence, then press the speaker button to have the device say it out loud.",
+        
+        "tutorial_typing_title": "Typing",
+        "tutorial_typing_description": "If what you want to say is not in the word bank, you can type anything! Just type your sentence in the text box and press the speak button to have it spoken aloud.",
+        
+        "tutorial_completion_title": "You're Ready!",
+        "tutorial_completion_description": "Great job! You're now ready to use the app. Remember: you can always come back to this tutorial by pressing the info button in the main menu. Enjoy communicating!",
+        "tutorial_completion_message": "Tutorial complete! You're now ready to use the app.",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "Tap an item to hear it",
+        "tutorial_demo_water": "Water",
+        "tutorial_demo_food": "Food",
+        "tutorial_demo_help": "Help",
+        "tutorial_your_sentence": "Your Sentence",
+        "tutorial_empty_sentence": "Start choosing words",
+        "tutorial_tap_words": "Tap words to build a sentence",
+        "tutorial_type_anything": "Type anything and hear it spoken",
+        "tutorial_type_here": "Type here",
+        "tutorial_type_something_first": "Please type something first"
     ]
     
     private static let esInlineFallback: [String: String] = [
@@ -136,7 +238,58 @@ struct Localizer {
         "type_here": "Escriba aquí",
         "speak_typed_sentence": "Hablar Oración Escrita",
         "clear": "Borrar",
-        "word_bank": "Banco de Palabras"
+        "word_bank": "Banco de Palabras",
+        
+        // Main menu
+        "menu_subtitle": "Toque una categoría para compartir lo que necesita",
+        
+        // Tutorial
+        "tutorial_button": "Tutorial Guiado",
+        "tutorial_exit": "Salir",
+        "tutorial_step_indicator": "Paso %@ de %@",
+        "tutorial_hear_step": "Escuchar Este Paso",
+        "tutorial_try_it": "Pruébalo",
+        "tutorial_previous": "Anterior",
+        "tutorial_next": "Siguiente",
+        "tutorial_finish": "Finalizar",
+        "tutorial_speak": "Hablar",
+        "tutorial_clear": "Borrar",
+        "tutorial_language_change_note": "Puede cambiar el idioma en cualquier momento durante el tutorial",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "Bienvenido a la Aplicación",
+        "tutorial_welcome_description": "Este tutorial le mostrará cómo usar el tablero de comunicación. Puede tocar imágenes para compartir sus necesidades, deseos y sentimientos, o construir oraciones eligiendo palabras.",
+        
+        "tutorial_categories_title": "Elegir Categorías",
+        "tutorial_categories_description": "El menú principal tiene tres categorías: Necesidades (como agua, comida), Deseos (como salir a caminar, llamar a alguien), y Sentimientos (como feliz, triste, enojado). Toque cualquiera de estos y el dispositivo lo dirá en voz alta.",
+        
+        "tutorial_needs_demo_title": "Usar Necesidades",
+        "tutorial_needs_demo_description": "Toque una imagen de lo que desea decir. El dispositivo dirá inmediatamente esa palabra. ¡Inténtalo!",
+        
+        "tutorial_sentence_builder_title": "Constructor de Oraciones",
+        "tutorial_sentence_builder_description": "El Constructor de Oraciones le permite crear sus propias oraciones. Puede usar dos métodos: tocar palabras del banco de palabras o escribir su propia oración.",
+        
+        "tutorial_word_bank_title": "Banco de Palabras",
+        "tutorial_word_bank_description": "El banco de palabras tiene una lista de palabras comunes. Toque palabras para construir una oración, luego presione el botón de altavoz para que el dispositivo lo diga en voz alta.",
+        
+        "tutorial_typing_title": "Escribir",
+        "tutorial_typing_description": "Si lo que quiere decir no está en el banco de palabras, ¡puede escribir cualquier cosa! Simplemente escriba su oración en el cuadro de texto y presione el botón hablar para que se diga en voz alta.",
+        
+        "tutorial_completion_title": "¡Está Listo!",
+        "tutorial_completion_description": "¡Excelente trabajo! Ahora está listo para usar la aplicación. Recuerde: siempre puede volver a este tutorial presionando el botón de información en el menú principal. ¡Disfrute comunicándose!",
+        "tutorial_completion_message": "¡Tutorial completo! Ahora está listo para usar la aplicación.",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "Toque un elemento para escucharlo",
+        "tutorial_demo_water": "Agua",
+        "tutorial_demo_food": "Comida",
+        "tutorial_demo_help": "Ayuda",
+        "tutorial_your_sentence": "Su Oración",
+        "tutorial_empty_sentence": "Comience a elegir palabras",
+        "tutorial_tap_words": "Toque palabras para construir una oración",
+        "tutorial_type_anything": "Escriba cualquier cosa y escúchela hablada",
+        "tutorial_type_here": "Escriba aquí",
+        "tutorial_type_something_first": "Por favor escriba algo primero"
     ]
     
     private static let zhInlineFallback: [String: String] = [
@@ -178,7 +331,58 @@ struct Localizer {
         "type_here": "在此输入",
         "speak_typed_sentence": "朗读输入的句子",
         "clear": "清除",
-        "word_bank": "词库"
+        "word_bank": "词库",
+        
+        // Main menu
+        "menu_subtitle": "点击类别以分享您的需求",
+        
+        // Tutorial
+        "tutorial_button": "指导教程",
+        "tutorial_exit": "退出",
+        "tutorial_step_indicator": "第 %@ 步，共 %@ 步",
+        "tutorial_hear_step": "听此步骤",
+        "tutorial_try_it": "试一试",
+        "tutorial_previous": "上一步",
+        "tutorial_next": "下一步",
+        "tutorial_finish": "完成",
+        "tutorial_speak": "朗读",
+        "tutorial_clear": "清除",
+        "tutorial_language_change_note": "您可以在教程期间随时更改语言",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "欢迎使用应用",
+        "tutorial_welcome_description": "本教程将向您展示如何使用沟通板。您可以点击图片来分享您的需求、愿望和感受，或通过选择单词来构建句子。",
+        
+        "tutorial_categories_title": "选择类别",
+        "tutorial_categories_description": "主菜单有三个类别：需求（如水、食物）、愿望（如散步、打电话给某人）和感受（如快乐、悲伤、生气）。点击其中任何一个，设备将大声朗读。",
+        
+        "tutorial_needs_demo_title": "使用需求",
+        "tutorial_needs_demo_description": "点击您想说的图片。设备将立即说出该单词。试试看！",
+        
+        "tutorial_sentence_builder_title": "句子构建器",
+        "tutorial_sentence_builder_description": "句子构建器让您创建自己的句子。您可以使用两种方法：从词库中点击单词，或输入自己的句子。",
+        
+        "tutorial_word_bank_title": "词库",
+        "tutorial_word_bank_description": "词库中有常用单词列表。点击单词构建句子，然后按扬声器按钮让设备大声朗读。",
+        
+        "tutorial_typing_title": "输入",
+        "tutorial_typing_description": "如果您想说的话不在词库中，您可以输入任何内容！只需在文本框中输入您的句子，然后按朗读按钮即可大声朗读。",
+        
+        "tutorial_completion_title": "您准备好了！",
+        "tutorial_completion_description": "做得好！您现在可以使用该应用了。记住：您可以随时通过按主菜单中的信息按钮返回本教程。享受沟通！",
+        "tutorial_completion_message": "教程完成！您现在可以使用该应用了。",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "点击项目以听到它",
+        "tutorial_demo_water": "水",
+        "tutorial_demo_food": "食物",
+        "tutorial_demo_help": "帮助",
+        "tutorial_your_sentence": "您的句子",
+        "tutorial_empty_sentence": "开始选择单词",
+        "tutorial_tap_words": "点击单词来构建句子",
+        "tutorial_type_anything": "输入任何内容并听到它朗读",
+        "tutorial_type_here": "在此输入",
+        "tutorial_type_something_first": "请先输入内容"
     ]
     
     private static let frInlineFallback: [String: String] = [
@@ -220,7 +424,58 @@ struct Localizer {
         "type_here": "Tapez ici",
         "speak_typed_sentence": "Prononcer la Phrase Tapée",
         "clear": "Effacer",
-        "word_bank": "Banque de Mots"
+        "word_bank": "Banque de Mots",
+        
+        // Main menu
+        "menu_subtitle": "Touchez une catégorie pour partager ce dont vous avez besoin",
+        
+        // Tutorial
+        "tutorial_button": "Tutoriel Guidé",
+        "tutorial_exit": "Quitter",
+        "tutorial_step_indicator": "Étape %@ sur %@",
+        "tutorial_hear_step": "Écouter Cette Étape",
+        "tutorial_try_it": "Essayez-le",
+        "tutorial_previous": "Précédent",
+        "tutorial_next": "Suivant",
+        "tutorial_finish": "Terminer",
+        "tutorial_speak": "Prononcer",
+        "tutorial_clear": "Effacer",
+        "tutorial_language_change_note": "Vous pouvez changer de langue à tout moment pendant le tutoriel",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "Bienvenue dans l'Application",
+        "tutorial_welcome_description": "Ce tutoriel vous montrera comment utiliser le tableau de communication. Vous pouvez toucher les images pour partager vos besoins, envies et émotions, ou construire des phrases en choisissant des mots.",
+        
+        "tutorial_categories_title": "Choisir les Catégories",
+        "tutorial_categories_description": "Le menu principal a trois catégories : Besoins (comme l'eau, la nourriture), Envies (comme se promener, appeler quelqu'un), et Émotions (comme heureux, triste, en colère). Touchez l'une d'elles et l'appareil la prononcera à voix haute.",
+        
+        "tutorial_needs_demo_title": "Utiliser les Besoins",
+        "tutorial_needs_demo_description": "Touchez une image de ce que vous voulez dire. L'appareil prononcera immédiatement ce mot. Essayez !",
+        
+        "tutorial_sentence_builder_title": "Constructeur de Phrases",
+        "tutorial_sentence_builder_description": "Le Constructeur de Phrases vous permet de créer vos propres phrases. Vous pouvez utiliser deux méthodes : toucher les mots de la banque de mots, ou taper votre propre phrase.",
+        
+        "tutorial_word_bank_title": "Banque de Mots",
+        "tutorial_word_bank_description": "La banque de mots contient une liste de mots courants. Touchez les mots pour construire une phrase, puis appuyez sur le bouton haut-parleur pour que l'appareil la prononce à voix haute.",
+        
+        "tutorial_typing_title": "Saisie",
+        "tutorial_typing_description": "Si ce que vous voulez dire n'est pas dans la banque de mots, vous pouvez taper n'importe quoi ! Tapez simplement votre phrase dans la zone de texte et appuyez sur le bouton prononcer pour la faire prononcer à voix haute.",
+        
+        "tutorial_completion_title": "Vous Êtes Prêt !",
+        "tutorial_completion_description": "Excellent travail ! Vous êtes maintenant prêt à utiliser l'application. N'oubliez pas : vous pouvez toujours revenir à ce tutoriel en appuyant sur le bouton d'informations dans le menu principal. Profitez de la communication !",
+        "tutorial_completion_message": "Tutoriel terminé ! Vous êtes maintenant prêt à utiliser l'application.",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "Touchez un élément pour l'entendre",
+        "tutorial_demo_water": "Eau",
+        "tutorial_demo_food": "Nourriture",
+        "tutorial_demo_help": "Aide",
+        "tutorial_your_sentence": "Votre Phrase",
+        "tutorial_empty_sentence": "Commencez à choisir des mots",
+        "tutorial_tap_words": "Touchez les mots pour construire une phrase",
+        "tutorial_type_anything": "Tapez n'importe quoi et écoutez-le prononcé",
+        "tutorial_type_here": "Tapez ici",
+        "tutorial_type_something_first": "Veuillez taper quelque chose d'abord"
     ]
 
     private static func inlineFallback(for key: String, code: String?) -> String? {
