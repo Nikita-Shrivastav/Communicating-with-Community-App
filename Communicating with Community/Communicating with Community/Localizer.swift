@@ -29,6 +29,7 @@ struct Localizer {
         "confirm_language_selected_hi": "हिन्दी चुनी गई है",
         "confirm_language_selected_es": "स्पेनिश चुनी गई है",
         "confirm_language_selected_zh": "चीनी चुनी गई है",
+        "confirm_language_selected_fr": "फ़्रेंच चुनी गई है",
         
         // Intro screen
         "start_using_board": "बोर्ड का उपयोग शुरू करें",
@@ -70,6 +71,7 @@ struct Localizer {
         "confirm_language_selected_hi": "Hindi selected",
         "confirm_language_selected_es": "Spanish selected",
         "confirm_language_selected_zh": "Chinese selected",
+        "confirm_language_selected_fr": "French selected",
         
         // Intro screen
         "start_using_board": "Start Using the Board",
@@ -111,6 +113,7 @@ struct Localizer {
         "confirm_language_selected_hi": "Hindi seleccionado",
         "confirm_language_selected_es": "Español seleccionado",
         "confirm_language_selected_zh": "Chino seleccionado",
+        "confirm_language_selected_fr": "Francés seleccionado",
         
         // Intro screen
         "start_using_board": "Comenzar a Usar el Tablero",
@@ -152,6 +155,7 @@ struct Localizer {
         "confirm_language_selected_hi": "已选择印地语",
         "confirm_language_selected_es": "已选择西班牙语",
         "confirm_language_selected_zh": "已选择中文",
+        "confirm_language_selected_fr": "已选择法语",
         
         // Intro screen
         "start_using_board": "开始使用看板",
@@ -176,6 +180,48 @@ struct Localizer {
         "clear": "清除",
         "word_bank": "词库"
     ]
+    
+    private static let frInlineFallback: [String: String] = [
+        // Main categories and navigation
+        "choose_category": "Choisir une Catégorie",
+        "sentence_builder": "Constructeur de Phrases",
+        "back": "Retour",
+        "info": "Informations",
+        "change_language": "Changer de Langue",
+        
+        // Language selection
+        "choose_language_title": "Choisir la Langue",
+        "hear_prompt": "Écouter l'Invite",
+        "prompt_select_language": "Veuillez sélectionner une langue",
+        "confirm_language_selected_en": "Anglais sélectionné",
+        "confirm_language_selected_hi": "Hindi sélectionné",
+        "confirm_language_selected_es": "Espagnol sélectionné",
+        "confirm_language_selected_zh": "Chinois sélectionné",
+        "confirm_language_selected_fr": "Français sélectionné",
+        
+        // Intro screen
+        "start_using_board": "Commencer à Utiliser le Tableau",
+        "hear_quick_summary": "Écouter un Résumé Rapide",
+        "quick_summary_text": "Cette application aide les personnes à communiquer leurs besoins, envies, émotions et phrases personnalisées en touchant des images, en choisissant des mots ou en tapant.",
+        
+        // Prompts
+        "prompt_choose_category": "Veuillez choisir une catégorie",
+        "prompt_sentence_builder": "Touchez les mots pour construire une phrase ou tapez votre propre phrase",
+        "prompt_back_to_menu": "Retour au menu principal",
+        "prompt_info": "Ouverture de la page d'informations",
+        "prompt_choose_words": "Veuillez choisir des mots",
+        "prompt_type_sentence": "Veuillez taper une phrase",
+        
+        // Sentence builder
+        "title_word_bank_sentence": "Touchez les mots pour construire une phrase",
+        "speak_word_bank": "Prononcer la Banque de Mots",
+        "clear_words": "Effacer les Mots",
+        "type_your_sentence": "Tapez Votre Phrase",
+        "type_here": "Tapez ici",
+        "speak_typed_sentence": "Prononcer la Phrase Tapée",
+        "clear": "Effacer",
+        "word_bank": "Banque de Mots"
+    ]
 
     private static func inlineFallback(for key: String, code: String?) -> String? {
         guard let code = code?.lowercased() else { return nil }
@@ -192,6 +238,9 @@ struct Localizer {
         } else if code == "zh" || code.hasPrefix("zh-") {
             if let v = zhInlineFallback[key] { return v }
             if let stripped = strippedKeyForFallback(key), let v2 = zhInlineFallback[stripped] { return v2 }
+        } else if code == "fr" || code.hasPrefix("fr-") {
+            if let v = frInlineFallback[key] { return v }
+            if let stripped = strippedKeyForFallback(key), let v2 = frInlineFallback[stripped] { return v2 }
         }
         
         return nil
