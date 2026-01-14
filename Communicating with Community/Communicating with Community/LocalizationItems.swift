@@ -3,10 +3,10 @@ import Foundation
 // Localized NeedItem arrays
 let englishItems: [NeedItem] = [
     // Needs (10 items)
-    NeedItem(image: "water", text: "I want water", category: .need),
-    NeedItem(image: "food", text: "I want food", category: .need),
-    NeedItem(image: "bed", text: "I want to sleep", category: .need),
-    NeedItem(image: "toilet", text: "I want to go to the bathroom", category: .need),
+    NeedItem(image: "water", text: "I need water", category: .need),
+    NeedItem(image: "food", text: "I need food", category: .need),
+    NeedItem(image: "bed", text: "I need to sleep", category: .need),
+    NeedItem(image: "toilet", text: "I need to go to the bathroom", category: .need),
     NeedItem(image: "help", text: "I need help", category: .need),
     NeedItem(image: "medicine", text: "I need medicine", category: .need),
     NeedItem(image: "break", text: "I need a break", category: .need),
@@ -76,3 +76,4 @@ let hindiItems: [NeedItem] = [
     NeedItem(image: "confused", text: "मैं भ्रमित महसूस करता/करती हूँ", category: .feeling),
     NeedItem(image: "sick", text: "मैं बीमार महसूस करता/करती हूँ", category: .feeling)
 ]
+

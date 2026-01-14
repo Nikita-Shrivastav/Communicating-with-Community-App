@@ -78,10 +78,10 @@ let spanishWordBank: [String] = [
 // Spanish localized items for categories
 let spanishItems: [NeedItem] = [
     // Needs (10 items)
-    NeedItem(image: "water", text: "Quiero agua", category: .need),
-    NeedItem(image: "food", text: "Quiero comida", category: .need),
-    NeedItem(image: "bed", text: "Quiero dormir", category: .need),
-    NeedItem(image: "toilet", text: "Quiero ir al baño", category: .need),
+    NeedItem(image: "water", text: "Necesito agua", category: .need),
+    NeedItem(image: "food", text: "Necesito comida", category: .need),
+    NeedItem(image: "bed", text: "Necesito dormir", category: .need),
+    NeedItem(image: "toilet", text: "Necesito ir al baño", category: .need),
     NeedItem(image: "help", text: "Necesito ayuda", category: .need),
     NeedItem(image: "medicine", text: "Necesito medicina", category: .need),
     NeedItem(image: "break", text: "Necesito un descanso", category: .need),

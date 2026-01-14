@@ -78,10 +78,10 @@ let frenchWordBank: [String] = [
 // French localized items for categories
 let frenchItems: [NeedItem] = [
     // Needs (10 items)
-    NeedItem(image: "water", text: "Je veux de l'eau", category: .need),
-    NeedItem(image: "food", text: "Je veux manger", category: .need),
-    NeedItem(image: "bed", text: "Je veux dormir", category: .need),
-    NeedItem(image: "toilet", text: "Je veux aller aux toilettes", category: .need),
+    NeedItem(image: "water", text: "J'ai besoin d'eau", category: .need),
+    NeedItem(image: "food", text: "J'ai besoin de manger", category: .need),
+    NeedItem(image: "bed", text: "J'ai besoin de dormir", category: .need),
+    NeedItem(image: "toilet", text: "J'ai besoin d'aller aux toilettes", category: .need),
     NeedItem(image: "help", text: "J'ai besoin d'aide", category: .need),
     NeedItem(image: "medicine", text: "J'ai besoin de médicaments", category: .need),
     NeedItem(image: "break", text: "J'ai besoin d'une pause", category: .need),
@@ -113,3 +113,4 @@ let frenchItems: [NeedItem] = [
     NeedItem(image: "confused", text: "Je me sens confus/confuse", category: .feeling),
     NeedItem(image: "sick", text: "Je me sens malade", category: .feeling)
 ]
+

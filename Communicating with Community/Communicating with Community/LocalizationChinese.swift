@@ -78,10 +78,10 @@ let chineseWordBank: [String] = [
 // Chinese localized items for categories
 let chineseItems: [NeedItem] = [
     // Needs (10 items)
-    NeedItem(image: "water", text: "我想喝水", category: .need),
-    NeedItem(image: "food", text: "我想吃东西", category: .need),
-    NeedItem(image: "bed", text: "我想睡觉", category: .need),
-    NeedItem(image: "toilet", text: "我想上厕所", category: .need),
+    NeedItem(image: "water", text: "我需要喝水", category: .need),
+    NeedItem(image: "food", text: "我需要吃东西", category: .need),
+    NeedItem(image: "bed", text: "我需要睡觉", category: .need),
+    NeedItem(image: "toilet", text: "我需要上厕所", category: .need),
     NeedItem(image: "help", text: "我需要帮助", category: .need),
     NeedItem(image: "medicine", text: "我需要药", category: .need),
     NeedItem(image: "break", text: "我需要休息", category: .need),
@@ -113,3 +113,4 @@ let chineseItems: [NeedItem] = [
     NeedItem(image: "confused", text: "我感到困惑", category: .feeling),
     NeedItem(image: "sick", text: "我感到不舒服", category: .feeling)
 ]
+
