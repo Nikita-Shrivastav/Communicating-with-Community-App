@@ -166,6 +166,7 @@ struct GuidedTutorialView: View {
         case "hi": return "हिन्दी"
         case "es": return "Español"
         case "zh": return "中文"
+        case "pt": return "Português"
         default: return "English"
         }
     }
@@ -182,41 +183,40 @@ struct GuidedTutorialView: View {
                 }
             
             // Language picker card
-            VStack(spacing: 20) {
-                HStack {
-                    Text(L("choose_language_title"))
-                        .font(.title2.bold())
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        showLanguagePicker = false
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.gray)
+            ScrollView {
+                VStack(spacing: 20) {
+                    HStack {
+                        Text(L("choose_language_title"))
+                            .font(.title2.bold())
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showLanguagePicker = false
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.gray)
+                        }
                     }
-                }
-                
-                VStack(spacing: 16) {
-                    HStack(spacing: 16) {
+                    
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                         languageButton(code: "en", name: "English", icon: "🇺🇸")
                         languageButton(code: "hi", name: "हिन्दी", icon: "🇮🇳")
-                    }
-                    
-                    HStack(spacing: 16) {
                         languageButton(code: "es", name: "Español", icon: "🇪🇸")
                         languageButton(code: "zh", name: "中文", icon: "🇨🇳")
+                        languageButton(code: "pt", name: "Português", icon: "🇵🇹")
                     }
+                    
+                    Text(L("tutorial_language_change_note"))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 8)
                 }
-                
-                Text(L("tutorial_language_change_note"))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 8)
+                .padding(24)
             }
-            .padding(24)
+            .frame(maxHeight: 600)
             #if os(iOS)
             .background(Color(uiColor: .systemBackground))
             #else
@@ -471,6 +471,8 @@ struct GuidedTutorialView: View {
             return ["yo", "quiero", "agua", "comida", "ayuda", "por favor"]
         case "zh":
             return ["我", "想要", "水", "食物", "帮助", "请"]
+        case "pt":
+            return ["eu", "quero", "água", "comida", "ajuda", "por favor"]
         default:
             return ["I", "want", "water", "food", "help", "please"]
         }

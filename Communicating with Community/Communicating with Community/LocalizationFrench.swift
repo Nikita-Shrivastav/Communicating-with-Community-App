@@ -6,7 +6,7 @@ struct FrenchLocalizationProvider: LocalizationProvider {
     let languageCode = "fr"
     let preferredVoiceCodes = ["fr-FR", "fr-CA", "fr-CH", "fr"]
     
-    func categoryTitle(for category: NeedItem.Category) -> String {
+    func categoryTitle(for category: ItemCategory) -> String {
         switch category {
         case .need: return "Besoins"
         case .want: return "Envies"

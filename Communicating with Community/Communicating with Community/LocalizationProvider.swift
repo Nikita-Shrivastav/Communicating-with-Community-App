@@ -6,7 +6,7 @@ protocol LocalizationProvider {
     var preferredVoiceCodes: [String] { get }
     var wordBank: [String] { get }
     var items: [NeedItem] { get }
-    func categoryTitle(for category: NeedItem.Category) -> String
+    func categoryTitle(for category: ItemCategory) -> String
 }
 
 struct EnglishLocalizationProvider: LocalizationProvider {
@@ -16,7 +16,7 @@ struct EnglishLocalizationProvider: LocalizationProvider {
     var wordBank: [String] { englishWordBank }
     var items: [NeedItem] { englishItems }
     
-    func categoryTitle(for category: NeedItem.Category) -> String {
+    func categoryTitle(for category: ItemCategory) -> String {
         switch category {
         case .need: return "Needs"
         case .want: return "Wants"
@@ -32,7 +32,7 @@ struct HindiLocalizationProvider: LocalizationProvider {
     var wordBank: [String] { hindiWordBank }
     var items: [NeedItem] { hindiItems }
     
-    func categoryTitle(for category: NeedItem.Category) -> String {
+    func categoryTitle(for category: ItemCategory) -> String {
         switch category {
         case .need: return "ज़रूरतें"
         case .want: return "इच्छाएँ"

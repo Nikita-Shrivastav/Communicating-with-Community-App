@@ -6,7 +6,7 @@ struct ChineseLocalizationProvider: LocalizationProvider {
     let languageCode = "zh"
     let preferredVoiceCodes = ["zh-CN", "zh-Hans", "zh-Hans-CN", "zh"]
     
-    func categoryTitle(for category: NeedItem.Category) -> String {
+    func categoryTitle(for category: ItemCategory) -> String {
         switch category {
         case .need: return "需求"
         case .want: return "想要"

@@ -19,6 +19,7 @@ struct SpeechBoardView: View {
         case spanish = "es"
         case chinese = "zh"
         case french = "fr"
+        case portuguese = "pt"
         
         var id: String { rawValue }
         
@@ -29,6 +30,7 @@ struct SpeechBoardView: View {
             case .spanish: return SpanishLocalizationProvider().displayName
             case .chinese: return ChineseLocalizationProvider().displayName
             case .french: return FrenchLocalizationProvider().displayName
+            case .portuguese: return PortugueseLocalizationProvider().displayName
             }
         }
         
@@ -39,6 +41,7 @@ struct SpeechBoardView: View {
             case .spanish: return SpanishLocalizationProvider().preferredVoiceCodes
             case .chinese: return ChineseLocalizationProvider().preferredVoiceCodes
             case .french: return FrenchLocalizationProvider().preferredVoiceCodes
+            case .portuguese: return PortugueseLocalizationProvider().preferredVoiceCodes
             }
         }
     }
@@ -48,7 +51,7 @@ struct SpeechBoardView: View {
     @AppStorage("selectedLanguageCode") private var selectedLanguageCode: String = ""
     @State private var showLanguagePicker: Bool = true
     
-    @State private var selectedCategory: NeedItem.Category? = nil
+    @State private var selectedCategory: ItemCategory? = nil
     @State private var showIntro = true
     @State private var isSentenceBuilderActive = false
     @State private var showTutorial = false
@@ -66,6 +69,7 @@ struct SpeechBoardView: View {
         case .spanish: return SpanishLocalizationProvider()
         case .chinese: return ChineseLocalizationProvider()
         case .french: return FrenchLocalizationProvider()
+        case .portuguese: return PortugueseLocalizationProvider()
         }
     }
 
@@ -141,6 +145,7 @@ struct SpeechBoardView: View {
                 
                 HStack(spacing: 20) {
                     languageButton(for: .french, color: .purple)
+                    languageButton(for: .portuguese, color: .cyan)
                 }
             }
             .padding(.horizontal)
@@ -345,7 +350,7 @@ struct SpeechBoardView: View {
     }
     
     // MARK: - Category View
-    private func categoryView(for category: NeedItem.Category) -> some View {
+    private func categoryView(for category: ItemCategory) -> some View {
         let categoryColor = colorForCategory(category)
         
         return VStack {
@@ -406,7 +411,7 @@ struct SpeechBoardView: View {
     }
     
     // Helper function to get color for each category
-    private func colorForCategory(_ category: NeedItem.Category) -> Color {
+    private func colorForCategory(_ category: ItemCategory) -> Color {
         switch category {
         case .need:
             return .red
@@ -653,7 +658,11 @@ struct EmojiMapper {
         ],
         "zh": [:],
         "hi": [:],
-        "fr": [:]
+        "fr": [:],
+        "pt": [
+            "água": "💧", "comida": "🍽️", "casa": "🏠", "banheiro": "🚻",
+            "feliz": "😊", "triste": "😢", "ajuda": "🆘", "por favor": "🙏"
+        ]
     ]
 
     // Normalizes words for lookup (lowercased, trimmed)

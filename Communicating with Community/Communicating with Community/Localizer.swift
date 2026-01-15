@@ -30,6 +30,7 @@ struct Localizer {
         "confirm_language_selected_es": "स्पेनिश चुनी गई है",
         "confirm_language_selected_zh": "चीनी चुनी गई है",
         "confirm_language_selected_fr": "फ़्रेंच चुनी गई है",
+        "confirm_language_selected_pt": "पुर्तगाली चुनी गई है",
         
         // Intro screen
         "start_using_board": "बोर्ड का उपयोग शुरू करें",
@@ -123,6 +124,7 @@ struct Localizer {
         "confirm_language_selected_es": "Spanish selected",
         "confirm_language_selected_zh": "Chinese selected",
         "confirm_language_selected_fr": "French selected",
+        "confirm_language_selected_pt": "Portuguese selected",
         
         // Intro screen
         "start_using_board": "Start Using the Board",
@@ -216,6 +218,7 @@ struct Localizer {
         "confirm_language_selected_es": "Español seleccionado",
         "confirm_language_selected_zh": "Chino seleccionado",
         "confirm_language_selected_fr": "Francés seleccionado",
+        "confirm_language_selected_pt": "Portugués seleccionado",
         
         // Intro screen
         "start_using_board": "Comenzar a Usar el Tablero",
@@ -309,6 +312,7 @@ struct Localizer {
         "confirm_language_selected_es": "已选择西班牙语",
         "confirm_language_selected_zh": "已选择中文",
         "confirm_language_selected_fr": "已选择法语",
+        "confirm_language_selected_pt": "已选择葡萄牙语",
         
         // Intro screen
         "start_using_board": "开始使用看板",
@@ -402,6 +406,7 @@ struct Localizer {
         "confirm_language_selected_es": "Espagnol sélectionné",
         "confirm_language_selected_zh": "Chinois sélectionné",
         "confirm_language_selected_fr": "Français sélectionné",
+        "confirm_language_selected_pt": "Portugais sélectionné",
         
         // Intro screen
         "start_using_board": "Commencer à Utiliser le Tableau",
@@ -477,6 +482,100 @@ struct Localizer {
         "tutorial_type_here": "Tapez ici",
         "tutorial_type_something_first": "Veuillez taper quelque chose d'abord"
     ]
+    
+    private static let ptInlineFallback: [String: String] = [
+        // Main categories and navigation
+        "choose_category": "Escolher Categoria",
+        "sentence_builder": "Construtor de Frases",
+        "back": "Voltar",
+        "info": "Informações",
+        "change_language": "Mudar Idioma",
+        
+        // Language selection
+        "choose_language_title": "Escolher Idioma",
+        "hear_prompt": "Ouvir Prompt",
+        "prompt_select_language": "Por favor, selecione um idioma",
+        "confirm_language_selected_en": "Inglês selecionado",
+        "confirm_language_selected_hi": "Hindi selecionado",
+        "confirm_language_selected_es": "Espanhol selecionado",
+        "confirm_language_selected_zh": "Chinês selecionado",
+        "confirm_language_selected_fr": "Francês selecionado",
+        "confirm_language_selected_pt": "Português selecionado",
+        
+        // Intro screen
+        "start_using_board": "Começar a Usar o Quadro",
+        "hear_quick_summary": "Ouvir Resumo Rápido",
+        "quick_summary_text": "Este aplicativo ajuda as pessoas a comunicar suas necessidades, desejos, sentimentos e frases personalizadas tocando em imagens, escolhendo palavras ou digitando.",
+        
+        // Prompts
+        "prompt_choose_category": "Por favor, escolha uma categoria",
+        "prompt_sentence_builder": "Toque nas palavras para construir uma frase ou digite sua própria frase",
+        "prompt_back_to_menu": "Voltando ao menu principal",
+        "prompt_info": "Abrindo a página de informações",
+        "prompt_choose_words": "Por favor, escolha as palavras",
+        "prompt_type_sentence": "Por favor, digite uma frase",
+        
+        // Sentence builder
+        "title_word_bank_sentence": "Toque nas palavras para construir uma frase",
+        "speak_word_bank": "Falar Banco de Palavras",
+        "clear_words": "Limpar Palavras",
+        "type_your_sentence": "Digite Sua Frase",
+        "type_here": "Digite aqui",
+        "speak_typed_sentence": "Falar Frase Digitada",
+        "clear": "Limpar",
+        "word_bank": "Banco de Palavras",
+        
+        // Main menu
+        "menu_subtitle": "Toque em uma categoria para compartilhar o que você precisa",
+        
+        // Tutorial
+        "tutorial_button": "Tutorial Guiado",
+        "tutorial_exit": "Sair",
+        "tutorial_step_indicator": "Passo %@ de %@",
+        "tutorial_hear_step": "Ouvir Este Passo",
+        "tutorial_try_it": "Experimente",
+        "tutorial_previous": "Anterior",
+        "tutorial_next": "Próximo",
+        "tutorial_finish": "Concluir",
+        "tutorial_speak": "Falar",
+        "tutorial_clear": "Limpar",
+        "tutorial_language_change_note": "Você pode mudar o idioma a qualquer momento durante o tutorial",
+        
+        // Tutorial steps
+        "tutorial_welcome_title": "Bem-vindo ao Aplicativo",
+        "tutorial_welcome_description": "Este tutorial mostrará como usar o quadro de comunicação. Você pode tocar em imagens para compartilhar suas necessidades, desejos e sentimentos, ou construir frases escolhendo palavras.",
+        
+        "tutorial_categories_title": "Escolher Categorias",
+        "tutorial_categories_description": "O menu principal tem três categorias: Necessidades (como água, comida), Desejos (como fazer uma caminhada, ligar para alguém) e Emoções (como feliz, triste, irritado). Toque em uma delas e o dispositivo falará em voz alta.",
+        
+        "tutorial_needs_demo_title": "Usar Necessidades",
+        "tutorial_needs_demo_description": "Toque em uma imagem do que você quer dizer. O dispositivo falará essa palavra imediatamente. Experimente!",
+        
+        "tutorial_sentence_builder_title": "Construtor de Frases",
+        "tutorial_sentence_builder_description": "O Construtor de Frases permite que você crie suas próprias frases. Você pode usar dois métodos: tocar nas palavras do banco de palavras ou digitar sua própria frase.",
+        
+        "tutorial_word_bank_title": "Banco de Palavras",
+        "tutorial_word_bank_description": "O banco de palavras contém uma lista de palavras comuns. Toque nas palavras para construir uma frase e, em seguida, pressione o botão de alto-falante para que o dispositivo fale em voz alta.",
+        
+        "tutorial_typing_title": "Digitação",
+        "tutorial_typing_description": "Se o que você quer dizer não está no banco de palavras, você pode digitar qualquer coisa! Basta digitar sua frase na caixa de texto e pressionar o botão falar para que seja falada em voz alta.",
+        
+        "tutorial_completion_title": "Você Está Pronto!",
+        "tutorial_completion_description": "Ótimo trabalho! Agora você está pronto para usar o aplicativo. Lembre-se: você sempre pode voltar a este tutorial pressionando o botão de informações no menu principal. Aproveite a comunicação!",
+        "tutorial_completion_message": "Tutorial concluído! Agora você está pronto para usar o aplicativo.",
+        
+        // Tutorial demo
+        "tutorial_tap_item": "Toque em um item para ouvi-lo",
+        "tutorial_demo_water": "Água",
+        "tutorial_demo_food": "Comida",
+        "tutorial_demo_help": "Ajuda",
+        "tutorial_your_sentence": "Sua Frase",
+        "tutorial_empty_sentence": "Comece a escolher palavras",
+        "tutorial_tap_words": "Toque nas palavras para construir uma frase",
+        "tutorial_type_anything": "Digite qualquer coisa e ouça-a falada",
+        "tutorial_type_here": "Digite aqui",
+        "tutorial_type_something_first": "Por favor, digite algo primeiro"
+    ]
 
     private static func inlineFallback(for key: String, code: String?) -> String? {
         guard let code = code?.lowercased() else { return nil }
@@ -496,6 +595,9 @@ struct Localizer {
         } else if code == "fr" || code.hasPrefix("fr-") {
             if let v = frInlineFallback[key] { return v }
             if let stripped = strippedKeyForFallback(key), let v2 = frInlineFallback[stripped] { return v2 }
+        } else if code == "pt" || code.hasPrefix("pt-") {
+            if let v = ptInlineFallback[key] { return v }
+            if let stripped = strippedKeyForFallback(key), let v2 = ptInlineFallback[stripped] { return v2 }
         }
         
         return nil
