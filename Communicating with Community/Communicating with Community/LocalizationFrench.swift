@@ -28,7 +28,7 @@ let frenchWordBank: [String] = [
     // Core pronouns / helpers
     "je", "tu", "nous", "ils", "elles", "il", "elle",
     "veux", "ai besoin", "ressens", "suis", "est", "sont",
-    "à", "aller", "jouer", "manger", "boire", "voir", "trouver", "aider",
+    "à", "aller", "jouer", "manger", "boire", "voir", "trouver", "aider", "aide",
     "s'il vous plaît", "maintenant", "plus tard", "plus", "moins", "arrêter",
     
     // People

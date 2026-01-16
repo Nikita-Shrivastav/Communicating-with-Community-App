@@ -29,7 +29,7 @@ let portugueseWordBank: [String] = [
     // Core pronouns / helpers
     "eu", "você", "nós", "eles", "ele", "ela",
     "quero", "preciso", "sinto", "sou", "é", "são",
-    "a", "ir", "brincar", "comer", "beber", "ver", "achar", "ajudar",
+    "a", "ir", "brincar", "comer", "beber", "ver", "achar", "ajudar", "ajuda",
     "por favor", "agora", "depois", "mais", "menos", "parar",
 
     // People
@@ -42,7 +42,7 @@ let portugueseWordBank: [String] = [
     "machucado", "animado", "nervoso", "preocupado", "calmo",
 
     // Food & drinks
-    "água", "suco", "leite", "sorvete", "pizza", "sanduíche",
+    "água", "comida", "suco", "leite", "sorvete", "pizza", "sanduíche",
     "arroz", "massa", "macarrão", "maçã", "banana", "biscoito",
     "pão", "batata frita", "sopa", "cereal", "ovo",
 

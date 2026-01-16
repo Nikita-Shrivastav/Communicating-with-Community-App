@@ -1,5 +1,9 @@
-import Testing
+import Foundation
+import Foundation
+import SwiftUI
 import AVFoundation
+import Testing
+@testable import Communicating_with_Community
 
 @Suite("Portuguese Language Support Tests")
 struct PortugueseLanguageTests {
@@ -209,7 +213,7 @@ struct PortugueseIntegrationTests {
         let provider = PortugueseLocalizationProvider()
         
         // Test that each category has items and they're valid
-        for category in [NeedItem.Category.need, .want, .feeling] {
+        for category in [ItemCategory.need, ItemCategory.want, ItemCategory.feeling] {
             let categoryItems = provider.items.filter { $0.category == category }
             let categoryTitle = provider.categoryTitle(for: category)
             

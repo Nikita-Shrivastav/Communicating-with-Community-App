@@ -28,7 +28,7 @@ let spanishWordBank: [String] = [
     // Core pronouns / helpers
     "yo", "tú", "nosotros", "ellos", "él", "ella",
     "quiero", "necesito", "siento", "soy", "es", "son",
-    "a", "ir", "jugar", "comer", "beber", "ver", "encontrar", "ayudar",
+    "a", "ir", "jugar", "comer", "beber", "ver", "encontrar", "ayudar", "ayuda",
     "por favor", "ahora", "después", "más", "menos", "parar",
     
     // People
@@ -41,7 +41,7 @@ let spanishWordBank: [String] = [
     "herido", "emocionado", "nervioso", "preocupado", "tranquilo",
     
     // Food & drinks
-    "agua", "jugo", "leche", "helado", "pizza", "sándwich",
+    "agua", "comida", "jugo", "leche", "helado", "pizza", "sándwich",
     "arroz", "pasta", "fideos", "manzana", "plátano", "galleta",
     "pan", "papas fritas", "sopa", "cereal", "huevo",
     

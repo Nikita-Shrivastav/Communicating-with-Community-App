@@ -1,5 +1,8 @@
 import Foundation
+import Foundation
+import SwiftUI
 import AVFoundation
+@testable import Communicating_with_Community
 
 /// Quick verification script for Portuguese language support
 /// Run this in a Playground or add to a test target to verify Portuguese integration

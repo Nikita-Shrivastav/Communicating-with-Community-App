@@ -4,4 +4,13 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:Communicating_with_CommunityUITests_Comprehensive.swift">
+   </FileRef>
+   <FileRef
+      location = "group:UI_TEST_SUITE_DOCUMENTATION.md">
+   </FileRef>
+   <FileRef
+      location = "group:UI_TEST_QUICK_START.md">
+   </FileRef>
 </Workspace>
