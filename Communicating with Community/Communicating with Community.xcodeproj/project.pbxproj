@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22010B1A2F18B70200491855 /* LocalizationPortuguese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22010B192F18B70200491855 /* LocalizationPortuguese.swift */; };
+		220CA97D2F1B447500E870E3 /* DocumentationAPP_USE_CASES.md in Resources */ = {isa = PBXBuildFile; fileRef = 220CA97C2F1B447500E870E3 /* DocumentationAPP_USE_CASES.md */; };
+		220CA97F2F1B453400E870E3 /* DocumentationTEST_COVERAGE_ANALYSIS.md in Resources */ = {isa = PBXBuildFile; fileRef = 220CA97E2F1B453400E870E3 /* DocumentationTEST_COVERAGE_ANALYSIS.md */; };
+		220CA9892F1B46BC00E870E3 /* DocumentationNEW_TEST_SUITES_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 220CA9882F1B46BC00E870E3 /* DocumentationNEW_TEST_SUITES_SUMMARY.md */; };
+		220CA98B2F1B46FF00E870E3 /* DocumentationTESTING_QUICK_REFERENCE.md in Resources */ = {isa = PBXBuildFile; fileRef = 220CA98A2F1B46FF00E870E3 /* DocumentationTESTING_QUICK_REFERENCE.md */; };
 		224852552F0B4F6800E14079 /* GuidedTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224852542F0B4F6800E14079 /* GuidedTutorialView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +35,10 @@
 		111374552E7BCC9000323579 /* Communicating with Community.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Communicating with Community.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		111374662E7BCC9200323579 /* Communicating with CommunityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Communicating with CommunityTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		111374702E7BCC9200323579 /* Communicating with CommunityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Communicating with CommunityUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		22010B192F18B70200491855 /* LocalizationPortuguese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationPortuguese.swift; sourceTree = "<group>"; };
+		220CA97C2F1B447500E870E3 /* DocumentationAPP_USE_CASES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationAPP_USE_CASES.md; sourceTree = "<group>"; };
+		220CA97E2F1B453400E870E3 /* DocumentationTEST_COVERAGE_ANALYSIS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationTEST_COVERAGE_ANALYSIS.md; sourceTree = "<group>"; };
+		220CA9882F1B46BC00E870E3 /* DocumentationNEW_TEST_SUITES_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationNEW_TEST_SUITES_SUMMARY.md; sourceTree = "<group>"; };
+		220CA98A2F1B46FF00E870E3 /* DocumentationTESTING_QUICK_REFERENCE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationTESTING_QUICK_REFERENCE.md; sourceTree = "<group>"; };
 		224852542F0B4F6800E14079 /* GuidedTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidedTutorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,7 +106,10 @@
 				111374732E7BCC9200323579 /* Communicating with CommunityUITests */,
 				111374562E7BCC9000323579 /* Products */,
 				224852542F0B4F6800E14079 /* GuidedTutorialView.swift */,
-				22010B192F18B70200491855 /* LocalizationPortuguese.swift */,
+				220CA97C2F1B447500E870E3 /* DocumentationAPP_USE_CASES.md */,
+				220CA97E2F1B453400E870E3 /* DocumentationTEST_COVERAGE_ANALYSIS.md */,
+				220CA9882F1B46BC00E870E3 /* DocumentationNEW_TEST_SUITES_SUMMARY.md */,
+				220CA98A2F1B46FF00E870E3 /* DocumentationTESTING_QUICK_REFERENCE.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -235,6 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				220CA97D2F1B447500E870E3 /* DocumentationAPP_USE_CASES.md in Resources */,
+				220CA98B2F1B46FF00E870E3 /* DocumentationTESTING_QUICK_REFERENCE.md in Resources */,
+				220CA9892F1B46BC00E870E3 /* DocumentationNEW_TEST_SUITES_SUMMARY.md in Resources */,
+				220CA97F2F1B453400E870E3 /* DocumentationTEST_COVERAGE_ANALYSIS.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +272,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22010B1A2F18B70200491855 /* LocalizationPortuguese.swift in Sources */,
 				224852552F0B4F6800E14079 /* GuidedTutorialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

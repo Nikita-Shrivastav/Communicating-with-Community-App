@@ -781,6 +781,56 @@ final class Communicating_with_CommunityTests: XCTestCase {
             }
         }
     }
+    
+    // MARK: - Emergency Communication Tests
+    
+    func testWaterIsAvailableInNeeds() throws {
+        let provider = EnglishLocalizationProvider()
+        let needItems = provider.items.filter { $0.category == .need }
+        let waterItem = needItems.first { $0.image == "water" }
+        
+        XCTAssertNotNil(waterItem, "Water should be available in needs")
+    }
+    
+    func testHelpIsAvailableInNeeds() throws {
+        let provider = EnglishLocalizationProvider()
+        let needItems = provider.items.filter { $0.category == .need }
+        let helpItem = needItems.first { $0.image == "help" }
+        
+        XCTAssertNotNil(helpItem, "Help should be available in needs")
+    }
+    
+    func testCriticalNeedsAvailableInAllLanguages() throws {
+        let providers: [LocalizationProvider] = [
+            EnglishLocalizationProvider(),
+            HindiLocalizationProvider(),
+            SpanishLocalizationProvider(),
+            ChineseLocalizationProvider(),
+            FrenchLocalizationProvider(),
+            PortugueseLocalizationProvider()
+        ]
+        
+        let criticalImages = ["water", "food", "toilet", "help", "medicine"]
+        
+        for provider in providers {
+            let needItems = provider.items.filter { $0.category == .need }
+            for image in criticalImages {
+                let item = needItems.first { $0.image == image }
+                XCTAssertNotNil(item, "\(provider.languageCode) should have '\(image)' in needs")
+            }
+        }
+    }
+    
+    func testEmergencyWordsInWordBank() throws {
+        let provider = EnglishLocalizationProvider()
+        let wordBank = provider.wordBank
+        let emergencyWords = ["help", "need", "hurt", "sick", "pain"]
+        
+        for word in emergencyWords {
+            XCTAssertTrue(wordBank.contains(word), "Word bank should contain emergency word '\(word)'")
+        }
+    }
 
 }
+
 
