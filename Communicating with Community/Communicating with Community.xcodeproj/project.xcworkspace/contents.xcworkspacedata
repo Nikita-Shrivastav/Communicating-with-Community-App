@@ -5,12 +5,6 @@
       location = "self:">
    </FileRef>
    <FileRef
-      location = "group:Communicating_with_CommunityUITests_Comprehensive.swift">
-   </FileRef>
-   <FileRef
-      location = "group:UI_TEST_SUITE_DOCUMENTATION.md">
-   </FileRef>
-   <FileRef
-      location = "group:UI_TEST_QUICK_START.md">
+      location = "group:APP_STORE_PREVIEW_VIDEO_SCRIPT.md">
    </FileRef>
 </Workspace>
