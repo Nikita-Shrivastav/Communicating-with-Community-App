@@ -21,4 +21,4 @@ We do not use analytics.
 We do not share any information with third parties.
 We do not store anything on our servers.
 If you have any questions, please contact us at:
-shrivastav.nikita2011@example.com
+shrivastav.nikita2011@gmail.com
