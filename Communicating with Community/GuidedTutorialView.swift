@@ -13,6 +13,7 @@ struct GuidedTutorialView: View {
         case sentenceBuilder
         case wordBank
         case typing
+        case transcribe
         case completion
         
         var title: String {
@@ -23,6 +24,7 @@ struct GuidedTutorialView: View {
             case .sentenceBuilder: return "tutorial_sentence_builder_title"
             case .wordBank: return "tutorial_word_bank_title"
             case .typing: return "tutorial_typing_title"
+            case .transcribe: return "tutorial_transcribe_title"
             case .completion: return "tutorial_completion_title"
             }
         }
@@ -35,6 +37,7 @@ struct GuidedTutorialView: View {
             case .sentenceBuilder: return "tutorial_sentence_builder_description"
             case .wordBank: return "tutorial_word_bank_description"
             case .typing: return "tutorial_typing_description"
+            case .transcribe: return "tutorial_transcribe_description"
             case .completion: return "tutorial_completion_description"
             }
         }
@@ -47,6 +50,7 @@ struct GuidedTutorialView: View {
             case .sentenceBuilder: return "text.bubble.fill"
             case .wordBank: return "character.book.closed.fill"
             case .typing: return "keyboard.fill"
+            case .transcribe: return "waveform.and.mic"
             case .completion: return "checkmark.circle.fill"
             }
         }
@@ -285,10 +289,12 @@ struct GuidedTutorialView: View {
             Text(L(currentStep.title))
                 .font(.largeTitle.bold())
                 .multilineTextAlignment(.center)
+                .accessibilityIdentifier("tutorial_step_title")
             
             Text(stepIndicatorText)
                 .font(.caption)
                 .foregroundColor(.secondary)
+                .accessibilityIdentifier("tutorial_step_indicator")
         }
         .padding(.top)
     }
@@ -341,7 +347,7 @@ struct GuidedTutorialView: View {
     // MARK: - Interactive Demo
     
     private var shouldShowDemo: Bool {
-        currentStep == .needsDemo || currentStep == .wordBank || currentStep == .typing
+        currentStep == .needsDemo || currentStep == .wordBank || currentStep == .typing || currentStep == .transcribe
     }
     
     @ViewBuilder
@@ -357,6 +363,8 @@ struct GuidedTutorialView: View {
                 wordBankDemoView
             case .typing:
                 typingDemoView
+            case .transcribe:
+                transcribeDemoView
             default:
                 EmptyView()
             }
@@ -366,6 +374,57 @@ struct GuidedTutorialView: View {
         .cornerRadius(12)
     }
     
+    // MARK: - Transcribe Demo
+    
+    private var transcribeDemoView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Mock transcript bubbles showing what the screen looks like
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(transcribeDemoLines, id: \.self) { line in
+                    HStack(alignment: .bottom, spacing: 8) {
+                        Text(line)
+                            .font(.body)
+                            .padding(10)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        Spacer(minLength: 40)
+                    }
+                }
+            }
+            .padding()
+            .background(Color.white.opacity(0.6))
+            .cornerRadius(10)
+            
+            // Start/Stop button preview
+            HStack(spacing: 12) {
+                Label(L("transcribe_start"), systemImage: "mic.fill")
+                    .font(.headline)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.green.opacity(0.3))
+                    .cornerRadius(10)
+                
+                Label(L("transcribe_stop"), systemImage: "stop.fill")
+                    .font(.headline)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.red.opacity(0.3))
+                    .cornerRadius(10)
+            }
+        }
+    }
+    
+    private var transcribeDemoLines: [String] {
+        switch selectedLanguage {
+        case "hi": return ["नमस्ते, आप कैसे हैं?", "मैं ठीक हूँ, धन्यवाद।"]
+        case "es": return ["Hola, ¿cómo estás?", "Estoy bien, gracias."]
+        case "zh": return ["你好，你好吗？", "我很好，谢谢。"]
+        case "fr": return ["Bonjour, comment allez-vous?", "Je vais bien, merci."]
+        case "pt": return ["Olá, como você está?", "Estou bem, obrigado."]
+        default:   return ["Hello, how are you?", "I am fine, thank you."]
+        }
+    }
+
     // MARK: - Needs Demo
     
     private var needsDemoView: some View {

@@ -22,14 +22,68 @@ struct IntroView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
+        VStack(spacing: 0) {
+
+            // Action buttons always visible at the top
+            VStack(spacing: 12) {
                 Text("Communicating with Community")
                     .font(.largeTitle.bold())
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
+                    .padding(.top)
 
-                Text("What this app does")
+                Button(action: {
+                    onStart()
+                }) {
+                    Text(startLabel)
+                        .font(.title2)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue.opacity(0.3))
+                        .cornerRadius(10)
+                }
+                .accessibilityIdentifier("intro_start_button")
+                .padding(.horizontal)
+
+                if let onStartTutorial = onStartTutorial {
+                    Button(action: {
+                        onStartTutorial()
+                    }) {
+                        HStack {
+                            Image(systemName: "graduationcap.fill")
+                            Text("Guided Tutorial")
+                        }
+                        .font(.title3)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green.opacity(0.3))
+                        .cornerRadius(10)
+                    }
+                    .accessibilityIdentifier("intro_tutorial_button")
+                    .padding(.horizontal)
+                }
+
+                Button(action: {
+                    onHearQuickSummary()
+                }) {
+                    Text(hearQuickSummaryLabel)
+                        .font(.body)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 8)
+            }
+
+            Divider()
+
+            // Scrollable information text
+            ScrollView {
+                VStack(spacing: 24) {
+
+                    Text("What this app does")
                     .font(.title2.bold())
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
@@ -42,7 +96,7 @@ struct IntroView: View {
                     Text("Main parts of the app")
                         .font(.title3.bold())
                     
-                    Text("• Needs – quick phrases like \"I want water\", \"I want food\", or \"I want to sleep\".\n• Wants – things the user might ask for, such as going for a walk or calling a family member.\n• Feelings – emotional words like happy, sad, mad, scared, anxious, or jealous.\n• Sentence Builder – a flexible area where the user can tap words from a word bank or type their own sentence and have it spoken aloud.")
+                    Text("• Needs – quick phrases like \"I want water\", \"I want food\", or \"I want to sleep\".\n• Wants – things the user might ask for, such as going for a walk or calling a family member.\n• Feelings – emotional words like happy, sad, mad, scared, anxious, or jealous.\n• Sentence Builder – a flexible area where the user can tap words from a word bank or type their own sentence and have it spoken aloud.\n• Transcribe – shows speech from others as text on screen, translated into the user's chosen language in real time. Designed for people who find hearing difficult.")
                         .font(.body)
                 }
                 .padding(.horizontal)
@@ -51,7 +105,7 @@ struct IntroView: View {
                     Text("Why this app can be helpful")
                         .font(.title3.bold())
                     
-                    Text("• It supports users who are non-speaking or have limited speech.\n• It reduces pressure to \"find the right words\" in the moment.\n• It can give the user more control over daily routines and choices.\n• It can help adults better understand pain, discomfort, and feelings without guessing.")
+                    Text("• It supports users who are non-speaking or have limited speech.\n• It reduces pressure to \"find the right words\" in the moment.\n• It can give the user more control over daily routines and choices.\n• It can help adults better understand pain, discomfort, and feelings without guessing.\n• It supports users who have difficulty hearing, by showing spoken words as text on screen.")
                         .font(.body)
                 }
                 .padding(.horizontal)
@@ -100,50 +154,10 @@ struct IntroView: View {
                         .font(.body)
                 }
                 .padding(.horizontal)
-
-                Button(action: {
-                    onStart()
-                }) {
-                    Text(startLabel)
-                        .font(.title2)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue.opacity(0.3))
-                        .cornerRadius(10)
                 }
-                .padding(.horizontal)
-                
-                if let onStartTutorial = onStartTutorial {
-                    Button(action: {
-                        onStartTutorial()
-                    }) {
-                        HStack {
-                            Image(systemName: "graduationcap.fill")
-                            Text("Guided Tutorial")
-                        }
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green.opacity(0.3))
-                        .cornerRadius(10)
-                    }
-                    .padding(.horizontal)
-                }
-                
-                Button(action: {
-                    onHearQuickSummary()
-                }) {
-                    Text(hearQuickSummaryLabel)
-                        .font(.body)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
-            }
-            .padding(.vertical)
-        }
+                .padding(.vertical)
+            } // end ScrollView
+        } // end outer VStack
     }
 }
 

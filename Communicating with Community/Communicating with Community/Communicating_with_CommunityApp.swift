@@ -55,6 +55,7 @@ struct SpeechBoardView: View {
     @State private var showIntro = true
     @State private var isSentenceBuilderActive = false
     @State private var showTutorial = false
+    @State private var showTranscribe = false
 
     // MARK: - Computed Properties
     
@@ -121,6 +122,9 @@ struct SpeechBoardView: View {
                 showLanguagePicker = false
             }
         }
+        .sheet(isPresented: $showTranscribe) {
+            TranscribeView(targetLanguageCode: currentLanguage.rawValue)
+        }
     }
     
     // MARK: - Language Picker View
@@ -171,7 +175,7 @@ struct SpeechBoardView: View {
         Button(action: {
             selectedLanguageCode = language.rawValue
             showLanguagePicker = false
-            // Dynamically construct confirmation key based on language code
+            showIntro = true  // always show intro when a language is (re)selected
             let confirmationKey = "confirm_language_selected_\(language.rawValue)"
             speak(text: L(confirmationKey))
         }) {
@@ -236,6 +240,7 @@ struct SpeechBoardView: View {
                 Text(L("choose_category"))
                     .font(.largeTitle.bold())
                     .multilineTextAlignment(.center)
+                    .accessibilityIdentifier("main_menu_heading")
                 
                 Text(L("menu_subtitle"))
                     .font(.subheadline)
@@ -274,6 +279,10 @@ struct SpeechBoardView: View {
                     )
                     
                     sentenceBuilderButton
+                }
+                
+                HStack(spacing: 20) {
+                    transcribeButton
                 }
             }
             .padding(.horizontal, 20)
@@ -314,6 +323,38 @@ struct SpeechBoardView: View {
             )
             .cornerRadius(20)
             .shadow(color: Color.purple.opacity(0.3), radius: 8, x: 0, y: 4)
+        }
+    }
+    
+    private var transcribeButton: some View {
+        Button(action: {
+            showTranscribe = true
+            speak(text: L("prompt_transcribe"))
+        }) {
+            VStack(spacing: 12) {
+                Image(systemName: "waveform.and.mic")
+                    .font(.system(size: 50))
+                    .foregroundColor(.white)
+                
+                Text(L("transcribe"))
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 160)
+            .padding()
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.teal, Color.teal.opacity(0.7)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(20)
+            .shadow(color: Color.teal.opacity(0.3), radius: 8, x: 0, y: 4)
         }
     }
     
@@ -424,121 +465,137 @@ struct SpeechBoardView: View {
     
     // MARK: - Sentence Builder
     private var sentenceBuilderView: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Button(action: {
-                isSentenceBuilderActive = false
-                currentSentence.removeAll()
-                typedSentence = ""
-                let msg = L("prompt_back_to_menu")
-                speak(text: msg)
-            }) {
-                Text("← " + L("back"))
-            }
-            .font(.title2)
-            .padding(.horizontal)
-            
-            Text(L("sentence_builder"))
-                .font(.largeTitle)
+        VStack(alignment: .leading, spacing: 0) {
+
+            // ── Sticky toolbar — always visible, never scrolls away ──
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Button(action: {
+                        isSentenceBuilderActive = false
+                        currentSentence.removeAll()
+                        typedSentence = ""
+                        speak(text: L("prompt_back_to_menu"))
+                    }) {
+                        Text("← " + L("back"))
+                    }
+                    .font(.title2)
+                    .accessibilityIdentifier("sentence_builder_top_anchor")
+
+                    Spacer()
+                }
                 .padding(.horizontal)
-            
-            // Word-bank sentence
-            VStack(alignment: .leading) {
-                Text(L("title_word_bank_sentence"))
-                    .font(.headline)
-                
+
+                Text(L("sentence_builder"))
+                    .font(.largeTitle)
+                    .padding(.horizontal)
+                    .accessibilityIdentifier("sentence_builder_heading")
+
+                // Sentence display
                 Text(currentSentence.joined(separator: " "))
                     .font(.title3)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .frame(minHeight: 70)
+                    .frame(minHeight: 60)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
-            }
-            .padding(.horizontal)
-            
-            HStack(spacing: 16) {
-                Button(L("speak_word_bank")) {
-                    let s = currentSentence.joined(separator: " ")
-                    speak(text: s.isEmpty ? L("prompt_choose_words") : s)
-                }
-                .padding()
-                .background(Color.blue.opacity(0.3))
-                .cornerRadius(10)
-                
-                Button(L("clear_words")) {
-                    currentSentence.removeAll()
-                }
-                .padding()
-                .background(Color.red.opacity(0.3))
-                .cornerRadius(10)
-            }
-            .padding(.horizontal)
-            
-            // Typed sentence
-            VStack(alignment: .leading, spacing: 8) {
-                Text(L("type_your_sentence"))
-                    .font(.headline)
-                
-                LanguageAwareTextField(
-                    placeholder: L("type_here"),
-                    text: $typedSentence,
-                    languageCode: currentLanguage.rawValue
-                )
-                .frame(height: 40)
-                .padding(.horizontal, 4)
-                
+                    .padding(.horizontal)
+                    .accessibilityIdentifier("sentence_display")
+                    .accessibilityValue(currentSentence.joined(separator: " "))
+
+                // Speak / Clear row — always on screen
                 HStack(spacing: 16) {
-                    Button(L("speak_typed_sentence")) {
-                        let trimmed = typedSentence.trimmingCharacters(in: .whitespacesAndNewlines)
-                        speak(text: trimmed.isEmpty ? L("prompt_type_sentence") : trimmed)
+                    Button(L("speak_word_bank")) {
+                        let s = currentSentence.joined(separator: " ")
+                        speak(text: s.isEmpty ? L("prompt_choose_words") : s)
                     }
                     .padding()
-                    .background(Color.green.opacity(0.3))
+                    .background(Color.blue.opacity(0.3))
                     .cornerRadius(10)
-                    
-                    Button(L("clear")) {
-                        typedSentence = ""
+
+                    Button(L("clear_words")) {
+                        currentSentence.removeAll()
                     }
+                    .accessibilityIdentifier("clear_words_button")
                     .padding()
-                    .background(Color.orange.opacity(0.3))
+                    .background(Color.red.opacity(0.3))
                     .cornerRadius(10)
                 }
-            }
-            .padding(.horizontal)
-            
-            // Word bank
-            Text(L("word_bank"))
-                .font(.headline)
                 .padding(.horizontal)
-            
+            }
+            .padding(.vertical, 8)
+
+            Divider()
+
+            // ── Scrollable content: typed sentence + word bank ──
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 12) {
-                    ForEach(localizedWordBank, id: \.self) { word in
-                        Button(action: {
-                            currentSentence.append(word)
-                        }) {
-                            HStack(spacing: 6) {
-                                if let emoji = EmojiMapper.emoji(for: word, languageCode: currentLanguage.rawValue) {
-                                    Text(emoji)
-                                }
-                                Text(word)
-                                    .font(.body)
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(2)
-                                    .minimumScaleFactor(0.8)
-                                    .fixedSize(horizontal: false, vertical: true)
+                VStack(alignment: .leading, spacing: 16) {
+
+                    // Typed sentence
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(L("type_your_sentence"))
+                            .font(.headline)
+
+                        LanguageAwareTextField(
+                            placeholder: L("type_here"),
+                            text: $typedSentence,
+                            languageCode: currentLanguage.rawValue
+                        )
+                        .frame(height: 40)
+                        .padding(.horizontal, 4)
+
+                        HStack(spacing: 16) {
+                            Button(L("speak_typed_sentence")) {
+                                let trimmed = typedSentence.trimmingCharacters(in: .whitespacesAndNewlines)
+                                speak(text: trimmed.isEmpty ? L("prompt_type_sentence") : trimmed)
                             }
-                            .padding(8)
-                            .frame(maxWidth: .infinity)
-                            .background(Color.purple.opacity(0.2))
-                            .cornerRadius(8)
+                            .padding()
+                            .background(Color.green.opacity(0.3))
+                            .cornerRadius(10)
+
+                            Button(L("clear")) {
+                                typedSentence = ""
+                            }
+                            .padding()
+                            .background(Color.orange.opacity(0.3))
+                            .cornerRadius(10)
                         }
                     }
+                    .padding(.horizontal)
+
+                    // Word bank
+                    Text(L("word_bank"))
+                        .font(.headline)
+                        .padding(.horizontal)
+                        .accessibilityIdentifier("word_bank_heading")
+
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 12) {
+                        ForEach(localizedWordBank, id: \.self) { word in
+                            Button(action: {
+                                currentSentence.append(word)
+                            }) {
+                                HStack(spacing: 6) {
+                                    if let emoji = EmojiMapper.emoji(for: word, languageCode: currentLanguage.rawValue) {
+                                        Text(emoji)
+                                    }
+                                    Text(word)
+                                        .font(.body)
+                                        .multilineTextAlignment(.center)
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.8)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                .padding(8)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.purple.opacity(0.2))
+                                .cornerRadius(8)
+                            }
+                            .accessibilityLabel(word)
+                        }
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
+                .padding(.vertical)
             }
-            
-            Spacer()
         }
     }
 

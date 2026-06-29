@@ -104,7 +104,30 @@ struct Localizer {
         "tutorial_tap_words": "वाक्य बनाने के लिए शब्दों पर टैप करें",
         "tutorial_type_anything": "कुछ भी टाइप करें और इसे ज़ोर से बोलें",
         "tutorial_type_here": "यहाँ टाइप करें",
-        "tutorial_type_something_first": "कृपया पहले कुछ टाइप करें"
+        "tutorial_type_something_first": "कृपया पहले कुछ टाइप करें",
+
+        // Transcribe feature
+        "transcribe": "ट्रांसक्राइब",
+        "transcribe_subtitle": "दूसरे क्या कह रहे हैं देखें",
+        "transcribe_start": "शुरू करें",
+        "transcribe_stop": "रोकें",
+        "transcribe_placeholder": "ट्रांसक्राइब किया गया पाठ यहाँ दिखेगा...",
+        "transcribe_listening": "सुन रहे हैं...",
+        "transcribe_stopped": "रुका हुआ",
+        "transcribe_translated_from": "से अनुवादित",
+        "transcribe_you_label": "आप",
+        "transcribe_other_label": "दूसरा व्यक्ति",
+        "transcribe_permission_denied": "माइक्रोफ़ोन या भाषण पहचान की अनुमति आवश्यक है।",
+        "transcribe_error": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+        "prompt_transcribe": "लाइव ट्रांसक्रिप्शन खुल रहा है। शुरू करने के लिए स्टार्ट दबाएं।",
+        "transcribe_info_title": "ट्रांसक्राइब के बारे में",
+        "transcribe_info_body": "यह टूल आपके आस-पास की बोली को सुनता है और उसे रियल टाइम में आपकी चुनी हुई भाषा में पाठ में बदलता है।",
+        "transcribe_clear": "मिटाएं",
+        "transcribe_clear_confirm": "सारा ट्रांसक्राइब किया गया पाठ मिटाएं?",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "लाइव ट्रांसक्रिप्शन",
+        "tutorial_transcribe_description": "ट्रांसक्राइब बटन आपको दूसरे व्यक्ति की बात रियल टाइम में पढ़ने देता है। स्टार्ट दबाएं और ऐप सुनेगा और स्क्रीन पर पाठ दिखाएगा, जो आपकी भाषा में अनुवादित होगा। आपके अपने शब्द अलग रंग में दिखते हैं ताकि आप दोनों में अंतर कर सकें।"
     ]
     
     private static let enInlineFallback: [String: String] = [
@@ -198,7 +221,30 @@ struct Localizer {
         "tutorial_tap_words": "Tap words to build a sentence",
         "tutorial_type_anything": "Type anything and hear it spoken",
         "tutorial_type_here": "Type here",
-        "tutorial_type_something_first": "Please type something first"
+        "tutorial_type_something_first": "Please type something first",
+
+        // Transcribe feature
+        "transcribe": "Transcribe",
+        "transcribe_subtitle": "See what others are saying",
+        "transcribe_start": "Start",
+        "transcribe_stop": "Stop",
+        "transcribe_placeholder": "Transcribed text will appear here...",
+        "transcribe_listening": "Listening...",
+        "transcribe_stopped": "Stopped",
+        "transcribe_translated_from": "Translated from",
+        "transcribe_you_label": "You",
+        "transcribe_other_label": "Other person",
+        "transcribe_permission_denied": "Microphone or speech recognition permission is required.",
+        "transcribe_error": "Something went wrong. Please try again.",
+        "prompt_transcribe": "Opening live transcription. Tap Start to begin.",
+        "transcribe_info_title": "About Transcribe",
+        "transcribe_info_body": "This tool listens to speech around you and converts it into text in your selected language, in real time.",
+        "transcribe_clear": "Clear",
+        "transcribe_clear_confirm": "Clear all transcribed text?",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "Live Transcription",
+        "tutorial_transcribe_description": "The Transcribe button lets you read what someone else is saying in real time. Tap Start and the app will listen and show the text on screen, translated into your language. Your own words appear differently so you can tell the two apart."
     ]
     
     private static let esInlineFallback: [String: String] = [
@@ -292,7 +338,30 @@ struct Localizer {
         "tutorial_tap_words": "Toque palabras para construir una oración",
         "tutorial_type_anything": "Escriba cualquier cosa y escúchela hablada",
         "tutorial_type_here": "Escriba aquí",
-        "tutorial_type_something_first": "Por favor escriba algo primero"
+        "tutorial_type_something_first": "Por favor escriba algo primero",
+
+        // Transcribe feature
+        "transcribe": "Transcribir",
+        "transcribe_subtitle": "Vea lo que otros están diciendo",
+        "transcribe_start": "Iniciar",
+        "transcribe_stop": "Detener",
+        "transcribe_placeholder": "El texto transcrito aparecerá aquí...",
+        "transcribe_listening": "Escuchando...",
+        "transcribe_stopped": "Detenido",
+        "transcribe_translated_from": "Traducido del",
+        "transcribe_you_label": "Usted",
+        "transcribe_other_label": "Otra persona",
+        "transcribe_permission_denied": "Se requiere permiso para el micrófono o el reconocimiento de voz.",
+        "transcribe_error": "Algo salió mal. Por favor, inténtelo de nuevo.",
+        "prompt_transcribe": "Abriendo transcripción en vivo. Toque Iniciar para comenzar.",
+        "transcribe_info_title": "Acerca de Transcribir",
+        "transcribe_info_body": "Esta herramienta escucha el habla a su alrededor y la convierte en texto en su idioma seleccionado, en tiempo real.",
+        "transcribe_clear": "Borrar",
+        "transcribe_clear_confirm": "¿Borrar todo el texto transcrito?",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "Transcripción en Vivo",
+        "tutorial_transcribe_description": "El botón Transcribir le permite leer lo que otra persona está diciendo en tiempo real. Toque Iniciar y la aplicación escuchará y mostrará el texto en pantalla, traducido a su idioma. Sus propias palabras aparecen de forma diferente para que pueda distinguirlas."
     ]
     
     private static let zhInlineFallback: [String: String] = [
@@ -386,7 +455,30 @@ struct Localizer {
         "tutorial_tap_words": "点击单词来构建句子",
         "tutorial_type_anything": "输入任何内容并听到它朗读",
         "tutorial_type_here": "在此输入",
-        "tutorial_type_something_first": "请先输入内容"
+        "tutorial_type_something_first": "请先输入内容",
+
+        // Transcribe feature
+        "transcribe": "转录",
+        "transcribe_subtitle": "查看他人正在说的内容",
+        "transcribe_start": "开始",
+        "transcribe_stop": "停止",
+        "transcribe_placeholder": "转录的文字将显示在这里...",
+        "transcribe_listening": "正在聆听...",
+        "transcribe_stopped": "已停止",
+        "transcribe_translated_from": "翻译自",
+        "transcribe_you_label": "您",
+        "transcribe_other_label": "对方",
+        "transcribe_permission_denied": "需要麦克风或语音识别权限。",
+        "transcribe_error": "出了点问题。请重试。",
+        "prompt_transcribe": "正在打开实时转录。点击开始以开始。",
+        "transcribe_info_title": "关于转录",
+        "transcribe_info_body": "此工具实时聆听周围的语音，并将其转换为您所选语言的文字。",
+        "transcribe_clear": "清除",
+        "transcribe_clear_confirm": "清除所有转录文字？",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "实时转录",
+        "tutorial_transcribe_description": "转录按钮让您实时阅读他人正在说的话。点击开始，应用将聆听并在屏幕上显示文字，翻译成您的语言。您自己的话以不同方式显示，以便您区分两者。"
     ]
     
     private static let frInlineFallback: [String: String] = [
@@ -480,7 +572,30 @@ struct Localizer {
         "tutorial_tap_words": "Touchez les mots pour construire une phrase",
         "tutorial_type_anything": "Tapez n'importe quoi et écoutez-le prononcé",
         "tutorial_type_here": "Tapez ici",
-        "tutorial_type_something_first": "Veuillez taper quelque chose d'abord"
+        "tutorial_type_something_first": "Veuillez taper quelque chose d'abord",
+
+        // Transcribe feature
+        "transcribe": "Transcrire",
+        "transcribe_subtitle": "Voyez ce que les autres disent",
+        "transcribe_start": "Démarrer",
+        "transcribe_stop": "Arrêter",
+        "transcribe_placeholder": "Le texte transcrit apparaîtra ici...",
+        "transcribe_listening": "En écoute...",
+        "transcribe_stopped": "Arrêté",
+        "transcribe_translated_from": "Traduit du",
+        "transcribe_you_label": "Vous",
+        "transcribe_other_label": "Autre personne",
+        "transcribe_permission_denied": "L'autorisation du microphone ou de la reconnaissance vocale est requise.",
+        "transcribe_error": "Quelque chose s'est mal passé. Veuillez réessayer.",
+        "prompt_transcribe": "Ouverture de la transcription en direct. Appuyez sur Démarrer pour commencer.",
+        "transcribe_info_title": "À propos de Transcrire",
+        "transcribe_info_body": "Cet outil écoute les discours autour de vous et les convertit en texte dans votre langue sélectionnée, en temps réel.",
+        "transcribe_clear": "Effacer",
+        "transcribe_clear_confirm": "Effacer tout le texte transcrit ?",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "Transcription en Direct",
+        "tutorial_transcribe_description": "Le bouton Transcrire vous permet de lire ce que quelqu'un d'autre dit en temps réel. Appuyez sur Démarrer et l'application écoutera et affichera le texte à l'écran, traduit dans votre langue. Vos propres mots apparaissent différemment pour que vous puissiez les distinguer."
     ]
     
     private static let ptInlineFallback: [String: String] = [
@@ -574,7 +689,30 @@ struct Localizer {
         "tutorial_tap_words": "Toque nas palavras para construir uma frase",
         "tutorial_type_anything": "Digite qualquer coisa e ouça-a falada",
         "tutorial_type_here": "Digite aqui",
-        "tutorial_type_something_first": "Por favor, digite algo primeiro"
+        "tutorial_type_something_first": "Por favor, digite algo primeiro",
+
+        // Transcribe feature
+        "transcribe": "Transcrever",
+        "transcribe_subtitle": "Veja o que os outros estão dizendo",
+        "transcribe_start": "Iniciar",
+        "transcribe_stop": "Parar",
+        "transcribe_placeholder": "O texto transcrito aparecerá aqui...",
+        "transcribe_listening": "Ouvindo...",
+        "transcribe_stopped": "Parado",
+        "transcribe_translated_from": "Traduzido do",
+        "transcribe_you_label": "Você",
+        "transcribe_other_label": "Outra pessoa",
+        "transcribe_permission_denied": "É necessária permissão para o microfone ou reconhecimento de fala.",
+        "transcribe_error": "Algo deu errado. Por favor, tente novamente.",
+        "prompt_transcribe": "Abrindo transcrição ao vivo. Toque em Iniciar para começar.",
+        "transcribe_info_title": "Sobre Transcrever",
+        "transcribe_info_body": "Esta ferramenta ouve a fala ao seu redor e a converte em texto no seu idioma selecionado, em tempo real.",
+        "transcribe_clear": "Limpar",
+        "transcribe_clear_confirm": "Limpar todo o texto transcrito?",
+
+        // Transcribe tutorial step
+        "tutorial_transcribe_title": "Transcrição ao Vivo",
+        "tutorial_transcribe_description": "O botão Transcrever permite que você leia o que outra pessoa está dizendo em tempo real. Toque em Iniciar e o aplicativo ouvirá e mostrará o texto na tela, traduzido para o seu idioma. Suas próprias palavras aparecem de forma diferente para que você possa distingui-las."
     ]
 
     private static func inlineFallback(for key: String, code: String?) -> String? {
